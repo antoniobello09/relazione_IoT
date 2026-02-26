@@ -9,56 +9,47 @@ I requisiti funzionali definiscono le capacità operative che la piattaforma dev
 
 \subsection{Gestione degli utenti e autenticazione}
 
-Il sistema deve consentire la registrazione di nuovi utenti e l'autenticazione mediante credenziali protette. A ogni utente viene assegnato un ruolo tra amministratore, cliente e tecnico, e l'accesso alle funzionalità della piattaforma deve essere regolato in base a tale ruolo. L'amministratore ha il compito di gestire la flotta e le tratte; il cliente può ricercare e prenotare spedizioni; il tecnico è responsabile del monitoraggio dello stato operativo dei veicoli refrigerati. Il meccanismo di autenticazione deve essere basato su token JWT (\textit{JSON Web Token}) con sessioni stateless, in modo da garantire la sicurezza delle comunicazioni senza richiedere la gestione dello stato lato server.
+Il sistema deve consentire l'autenticazione mediante credenziali protette. A ogni utente viene assegnato un ruolo tra amministratore, cliente e tecnico. L'accesso alle funzionalità della piattaforma deve essere regolato in base a tale ruolo.
 
 \subsection{Gestione della flotta}
 
-L'amministratore deve poter registrare nuovi veicoli nella piattaforma, specificando per ciascuno le dimensioni del vano di carico (larghezza, altezza, lunghezza), la portata massima in peso, il costo per chilometro e l'indicazione sulla presenza o meno dell'impianto di refrigerazione. Il sistema deve consentire la visualizzazione dell'intera flotta e la rimozione dei veicoli non più operativi. Queste informazioni costituiscono la base su cui vengono calcolate la capacità residua delle tratte e la compatibilità con le richieste di spedizione.
+L'amministratore deve poter registrare nuovi veicoli nella piattaforma, specificando per ciascuno le dimensioni del vano di carico (larghezza, altezza, lunghezza), la portata massima in peso, il costo per chilometro e l'indicazione sulla presenza o meno dell'impianto di refrigerazione. Il sistema deve consentire la visualizzazione dell'intera flotta e la rimozione dei veicoli non più operativi.
 
-\subsection{Creazione e gestione delle tratte}
+\subsection{Gestione dei viaggi e delle spedizioni}
 
-L'amministratore deve poter creare nuove tratte specificando il veicolo assegnato, l'indirizzo di partenza, l'indirizzo di arrivo e la data prevista di arrivo. Il sistema deve calcolare automaticamente il percorso ottimale, la distanza in chilometri e la durata stimata del viaggio sfruttando le API di Google Maps per il geocoding degli indirizzi e il calcolo delle rotte. La polyline del percorso deve essere memorizzata per consentirne la visualizzazione su mappa nell'interfaccia utente. L'amministratore deve inoltre poter visualizzare l'elenco delle tratte attive, consultare le spedizioni associate a ciascuna tratta e procedere all'eliminazione delle tratte non più necessarie.
+L'amministratore deve poter visualizzare l'elenco dei viaggi programmati e consultare le spedizioni associate a ciascun viaggio.
 
 \subsection{Ricerca e prenotazione delle spedizioni}
 
-Il cliente deve poter ricercare le tratte disponibili inserendo le caratteristiche del proprio pacco --- dimensioni, peso, necessità di refrigerazione --- e la data entro cui la consegna deve essere completata. Il sistema deve restituire sia le tratte ancora libere sia quelle già occupate da altre spedizioni, purché dispongano di capacità residua sufficiente ad accogliere il nuovo pacco. Per le tratte condivise, il prezzo deve essere ricalcolato applicando un meccanismo di divisione basato sul numero di spedizioni già presenti, in modo da incentivare la condivisione del veicolo. Una volta selezionata una tratta, il cliente specifica gli indirizzi di ritiro e consegna della propria spedizione: il sistema ricalcola dinamicamente il percorso del veicolo introducendo le nuove fermate come waypoint intermedi e aggiorna la polyline, la distanza complessiva e la durata stimata. La capacità residua del veicolo in termini di dimensioni e peso viene decrementata di conseguenza.
+Il cliente deve poter ricercare i viaggi disponibili inserendo l'indirizzo di partenza, l'indirizzo di arrivo, le caratteristiche del proprio pacco --- dimensioni, peso, necessità di refrigerazione --- e la data entro cui la consegna deve essere completata. 
+Il sistema deve restituire due categorie di risultati: nuovi viaggi, generati a partire dai veicoli della flotta ancora privi di viaggi assegnati con percorso calcolato ad hoc, e viaggi condivisi, corrispondenti a viaggi già programmati che dispongano di capacità residua sufficiente e di compatibilità geografica con il percorso richiesto. Per i viaggi condivisi, il prezzo deve essere ricalcolato applicando un meccanismo di divisione basato sul numero di spedizioni già presenti, in modo da incentivare la condivisione del veicolo. Il cliente seleziona il viaggio desiderato tra quelli proposti. Alla conferma della selezione, il sistema deve: nel caso di un nuovo viaggio, crearlo automaticamente con il percorso calcolato; nel caso di un viaggio condiviso, ricalcolare dinamicamente il percorso introducendo le fermate del nuovo cliente come tappe intermedie.
 
 \subsection{Monitoraggio telemetrico in tempo reale}
 
-Il sistema deve acquisire i dati telemetrici provenienti dai sensori installati a bordo dei veicoli refrigerati. Tali dati comprendono quindici parametri operativi: temperatura ambiente, temperatura impostata, temperatura misurata in cabina, temperatura di saturazione dell'evaporatore e del condensatore, pressione di aspirazione e di mandata, frequenza del compressore, surriscaldamento, potenza assorbita dal compressore, potenza frigorifera dell'evaporatore, coefficiente di prestazione (COP) e tre indicatori binari relativi allo stato della porta, del ciclo di sbrinamento e della valvola di espansione. La trasmissione dei dati deve avvenire tramite il protocollo MQTT con una frequenza di campionamento di un messaggio al minuto, coerente con le dinamiche operative reali degli impianti di refrigerazione. Il tecnico deve poter visualizzare i dati telemetrici attraverso una dashboard che presenti l'andamento temporale dei parametri mediante grafici in tempo reale, con la possibilità di filtrare per veicolo e per tipologia di parametro.
+Il sistema deve acquisire i dati telemetrici provenienti dai sensori installati a bordo dei veicoli refrigerati. Il tecnico deve poter visualizzare i dati telemetrici attraverso una dashboard che presenti l'andamento temporale dei parametri mediante grafici, con la possibilità di filtrare per veicolo e per tipologia di dato telemetrico.
 
 \subsection{Rilevazione delle anomalie}
 
-Un servizio dedicato deve analizzare in maniera continuativa i flussi telemetrici provenienti dai veicoli e identificare automaticamente condizioni operative anomale. Il sistema deve impiegare un modello LSTM Autoencoder addestrato sul comportamento nominale dell'impianto di refrigerazione: per ciascuna finestra temporale di osservazione, il modello calcola l'errore di ricostruzione e lo confronta con una soglia appresa in fase di training. Per evitare falsi positivi dovuti a fluttuazioni momentanee, il sistema deve implementare un meccanismo di smoothing basato su contatori consecutivi, in modo che un'anomalia venga confermata solo dopo un numero sufficiente di rilevazioni anomale consecutive e, analogamente, venga dichiarata rientrata solo dopo un adeguato numero di rilevazioni normali. Quando un'anomalia viene confermata, il sistema deve generare una notifica persistente, associata al veicolo interessato, e renderla disponibile al tecnico responsabile attraverso la dashboard.
-
+Un servizio dedicato deve analizzare in maniera continuativa i flussi telemetrici provenienti dai veicoli e identificare automaticamente condizioni anomale. Quando un'anomalia viene confermata, il sistema deve generare una notifica persistente, associata al veicolo interessato.
 \subsection{Gestione delle notifiche}
 
-Il tecnico deve poter consultare l'elenco delle notifiche ricevute, ordinate cronologicamente, ciascuna contenente il nome del veicolo, il timestamp dell'evento, l'errore di ricostruzione e un messaggio descrittivo dell'anomalia rilevata. Il sistema deve distinguere tra notifiche lette e non lette e consentire al tecnico di contrassegnare come letta una notifica dopo averla presa in carico. Le notifiche devono essere accessibili esclusivamente dagli utenti con ruolo tecnico.
-
+Il tecnico deve poter consultare l'elenco delle notifiche ricevute, ciascuna contenente il nome del veicolo, il timestamp dell'evento, l'errore di ricostruzione e un messaggio descrittivo dell'anomalia rilevata. 
 \section{Requisiti Non Funzionali}
 
 I requisiti non funzionali specificano le qualità architetturali e operative che il sistema deve garantire trasversalmente rispetto alle singole funzionalità.
 
 \subsection{Usabilità}
 
-L'interfaccia utente deve essere progettata con particolare attenzione alla chiarezza e all'immediatezza d'uso. Le informazioni devono essere presentate in modo differenziato in base al ruolo dell'utente: l'amministratore necessita di una visione d'insieme sulla flotta e sulle tratte; il cliente richiede un'esperienza di ricerca e prenotazione semplice e guidata; il tecnico ha bisogno di una dashboard di monitoraggio che evidenzi rapidamente le situazioni critiche. La visualizzazione delle tratte su mappa, i grafici telemetrici con codifica cromatica degli stati di guasto e le notifiche con badge numerici contribuiscono a rendere l'interfaccia informativa senza risultare sovraccarica.
+L'interfaccia utente deve essere progettata con particolare attenzione alla chiarezza e all'immediatezza d'uso. Le informazioni devono essere presentate in modo differenziato in base al ruolo dell'utente.
 
 \subsection{Sicurezza}
 
-Il sistema deve proteggere le comunicazioni tra client e server mediante autenticazione basata su token JWT. Le password degli utenti devono essere memorizzate in forma cifrata utilizzando l'algoritmo BCrypt. L'accesso alle API deve essere regolato da un sistema di autorizzazione basato sui ruoli, in modo che ciascun endpoint sia raggiungibile esclusivamente dagli utenti che dispongono dei permessi necessari. Le sessioni devono essere gestite in modalità stateless per evitare vulnerabilità legate alla gestione dello stato lato server.
+Il sistema deve proteggere le comunicazioni tra client e server mediante autenticazione e assegnazione dei ruoli agli utenti autenticati. Le password degli utenti devono essere memorizzate in forma cifrata. 
 
 \subsection{Modularità e manutenibilità}
 
-L'architettura del sistema deve seguire il paradigma a microservizi, con una separazione netta tra le componenti applicative: il backend per la logica di business, il frontend per l'interfaccia utente, il broker MQTT per la comunicazione asincrona, i servizi Python per lo streaming telemetrico e la rilevazione delle anomalie, e il database per la persistenza. Ogni componente deve poter essere sviluppato, testato e aggiornato indipendentemente dagli altri, favorendo la manutenibilità nel tempo e la possibilità di sostituire o estendere singoli moduli senza impattare sul resto del sistema.
+L'architettura del sistema deve seguire il paradigma a microservizi, con una separazione netta tra le componenti applicative. Ogni componente deve poter essere sviluppato, testato e aggiornato indipendentemente dagli altri.
 
 \subsection{Portabilità e riproducibilità del deployment}
 
-L'intera infrastruttura deve essere containerizzata tramite Docker e orchestrata mediante Docker Compose, in modo da garantire che il sistema possa essere avviato in maniera identica su qualsiasi macchina che disponga del runtime Docker, indipendentemente dal sistema operativo e dalla configurazione dell'ambiente ospitante. Il file di orchestrazione deve definire tutti i servizi, le reti interne e le dipendenze tra i container, rendendo il deployment un'operazione deterministica e ripetibile.
-
-\subsection{Scalabilità del monitoraggio}
-
-Il servizio di rilevazione anomalie deve essere in grado di gestire simultaneamente i flussi telemetrici provenienti da più veicoli, mantenendo per ciascuno un buffer indipendente e uno stato interno separato. L'aggiunta di un nuovo veicolo monitorato non deve richiedere interventi manuali di configurazione: il sistema deve creare automaticamente un'istanza del detector alla ricezione del primo messaggio telemetrico da un veicolo precedentemente sconosciuto e rilasciare le risorse associate al completamento dello stream.
-
-\subsection{Affidabilità della comunicazione}
-
-La comunicazione tra i servizi di telemetria e il backend deve avvenire tramite il protocollo MQTT, che garantisce un disaccoppiamento tra produttori e consumatori dei messaggi e supporta la riconnessione automatica in caso di interruzioni temporanee della connettività. Il sistema deve gestire in maniera controllata la disconnessione e la riconnessione dei client MQTT, assicurando che nessun dato telemetrico venga perso durante transitori di rete e che lo stato interno dei detector venga correttamente reinizializzato quando necessario.
+L'intera infrastruttura deve essere containerizzata tramite Docker e orchestrata mediante Docker Compose, in modo da garantire che il sistema possa essere avviato in maniera identica su qualsiasi macchina che disponga del runtime Docker.
