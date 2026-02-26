@@ -1,0 +1,120 @@
+\documentclass[a4paper,12pt]{report}
+
+% Carica pacchetti necessari
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{eurosym}
+\usepackage{bbm}
+\usepackage{multicol}
+\usepackage{hyperref} % Per rendere i riferimenti cliccabili
+\usepackage{amsmath}   % Per le equazioni e la matematica avanzata
+\usepackage{amssymb}   % Per simboli matematici come \mathbb{R}
+\usepackage{amsfonts}  % Per font matematici aggiuntivi
+\usepackage{graphicx}  % Per includere immagini
+\usepackage{fancyhdr}   % Per le intestazioni personalizzate
+\usepackage[backend=biber, style=numeric]{biblatex}  % Per la bibliografia
+\usepackage[italian]{babel}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{csquotes}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{adjustbox}
+\usepackage{url}
+\usepackage{textcomp}
+\lstset{
+    basicstyle=\ttfamily,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    numbers=left,
+    numberstyle=\tiny,
+    stepnumber=1,
+    numbersep=5pt,
+    showstringspaces=false,
+    breaklines=true,
+    frame=single
+}
+\addbibresource{bibliografia.bib}  % Il nome del file .bib per la bibliografia
+\makeatletter
+\renewcommand{\ALG@name}{Algoritmo} % Cambia "Algorithm" in "Algoritmo"
+\makeatother
+\renewcommand{\theequation}{\arabic{equation}}
+\usepackage{chngcntr}
+\counterwithout{equation}{chapter}
+
+% Inizio del documento
+\begin{document}
+
+% Prima pagina
+\begin{titlepage}
+\centering
+
+\vspace*{0.5cm}
+
+% Logo
+\includegraphics[width=0.20\textwidth]{logo_unisalento.png}
+
+\vspace{0.8cm}
+
+% Università, facoltà, corso
+{\Large\textsc{Università del Salento}}\\[0.3cm]
+{\large Facoltà di Ingegneria}\\[0.15cm]
+{\large Corso di Laurea in Ingegneria dell'Informazione}
+
+\vspace{0.6cm}
+\rule{0.8\textwidth}{0.4pt}
+
+\vspace{1.2cm}
+
+% Titolo
+{\LARGE\bfseries
+ChillChain --- Piattaforma IoT per il\\[0.3cm]
+trasporto refrigerato condiviso
+}
+
+\vspace{0.6cm}
+
+{\large\itshape Matching domanda-offerta e rilevazione anomalie\\[0.15cm]
+con LSTM Autoencoder}
+
+\vspace{1.5cm}
+
+% Relatore e candidato
+\begin{minipage}[t]{0.45\textwidth}
+\raggedright
+{\small\textsc{Relatore}}\\[0.2cm]
+{\normalsize Prof. Luigi Patrono}\\[0.5cm]
+{\small\textsc{Tutor}}\\[0.2cm]
+{\normalsize Ing. Teodoro Montanaro}
+\end{minipage}%
+\hfill
+\begin{minipage}[t]{0.45\textwidth}
+\raggedleft
+{\small\textsc{Studente}}\\[0.2cm]
+{\normalsize Antonio Bello}\\[0.15cm]
+{\small Mat. 20093232}
+\end{minipage}
+
+\vfill
+
+\rule{0.8\textwidth}{0.4pt}\\[0.4cm]
+{\normalsize Anno Accademico 2025--2026}
+
+\end{titlepage}
+
+% Indice (automatico)
+\tableofcontents
+\newpage
+
+\input{capitolo1_introduzione}
+\input{capitolo2_analisi_requisiti}
+\input{capitolo3_stato_arte}
+\input{capitolo4_tecnologie}
+\input{capitolo5_soluzione_proposta}
+\input{capitolo6_validazione}
+\input{capitolo7_conclusioni}
+\newpage
+\printbibliography
+
+\end{document}

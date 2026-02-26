@@ -1,0 +1,31 @@
+\chapter{Conclusioni e Sviluppi Futuri}
+\label{ch:conclusioni}
+
+\section{Conclusioni}
+
+L'obiettivo di questo lavoro era la progettazione e l'implementazione di una piattaforma IoT integrata per il trasporto refrigerato condiviso, capace di unire in un unico sistema due funzionalità tradizionalmente separate: un marketplace per il matching tra domanda e offerta di spedizioni e un sistema di monitoraggio della catena del freddo con rilevazione automatica delle anomalie.
+
+Il sistema realizzato, denominato ChillChain, raggiunge questo obiettivo attraverso un'architettura a microservizi che orchestra sei componenti containerizzati: un backend Spring Boot per la logica di business e l'autenticazione, un frontend React differenziato per ruolo, un broker MQTT Mosquitto per la comunicazione asincrona, due servizi Python dedicati rispettivamente allo streaming telemetrico e all'anomaly detection, e un database MongoDB per la persistenza dei dati.
+
+Sul versante commerciale, la piattaforma consente ai clienti di ricercare tratte compatibili con le proprie esigenze di spedizione, visualizzando sia veicoli disponibili sia tratte già programmate su cui è possibile inserirsi. Il meccanismo di validazione geografica, basato sul calcolo della distanza geodetica tra i punti di ritiro/consegna e la polyline del percorso esistente, garantisce che le deviazioni introdotte siano accettabili. Il ricalcolo dinamico del percorso con waypoint intermedi, ordinati tramite un algoritmo greedy con vincoli di precedenza pickup/delivery, aggiorna automaticamente il tracciato della tratta. Il sistema di pricing con divisore esponenziale $2^n$ crea un incentivo economico crescente alla condivisione, rendendo il trasporto progressivamente più conveniente al crescere dell'occupazione del veicolo.
+
+Sul versante del monitoraggio, il modello LSTM Autoencoder addestrato su dati di funzionamento normale è in grado di rilevare anomalie complesse e multivariate che sfuggirebbero a sistemi basati su soglie statiche, come il degrado graduale delle prestazioni del compressore o il fouling del condensatore combinato a sottocariamento del refrigerante. Il meccanismo di smoothing a contatori consecutivi riduce efficacemente i falsi positivi, introducendo un ritardo controllato nella segnalazione a fronte di una maggiore affidabilità delle notifiche. L'intero flusso --- dalla generazione della telemetria alla notifica persistente per il tecnico --- opera in modo automatico e trasparente, senza richiedere intervento manuale.
+
+La validazione funzionale, condotta attraverso uno scenario end-to-end che ha coinvolto tutti e tre i ruoli previsti, ha confermato il corretto funzionamento dell'intera catena: registrazione dei veicoli, ricerca e prenotazione delle tratte con pricing dinamico, avvio della simulazione, rilevazione dell'anomalia dopo il periodo di smoothing e visualizzazione dello storico telemetrico da parte del tecnico.
+
+
+\section{Sviluppi futuri}
+
+Nonostante i risultati ottenuti, il lavoro presenta margini di miglioramento che possono essere affrontati in sviluppi successivi.
+
+\paragraph{Ottimizzazione temporale dei waypoint.}
+L'attuale sistema di matching tra spedizioni e tratte esistenti si concentra prevalentemente sulla compatibilità spaziale: la distanza dei punti di ritiro e consegna dalla polyline del percorso e la tolleranza sulla durata complessiva del viaggio. Non viene tuttavia stimato l'orario di passaggio del veicolo nei punti intermedi. In uno scenario reale, un cliente che richiede il ritiro a Bologna alle 10:00 non ha garanzia che il veicolo in transito da Milano a Roma passi effettivamente in quella fascia oraria. Un'evoluzione del sistema potrebbe calcolare l'ETA (\textit{Estimated Time of Arrival}) in ciascun waypoint sulla base della velocità media e della posizione lungo il percorso, consentendo al sistema di rifiutare combinazioni temporalmente incompatibili e al cliente di conoscere l'orario previsto di ritiro e consegna.
+
+\paragraph{Retraining periodico del modello di anomaly detection.}
+Il modello LSTM Autoencoder attualmente impiegato è stato addestrato offline su un dataset sintetico e caricato come artefatto statico nel servizio di inferenza. In un contesto operativo reale, le condizioni di funzionamento degli impianti frigoriferi possono variare nel tempo a causa dell'usura, della manutenzione o dell'introduzione di nuovi veicoli con caratteristiche diverse. Un sistema di raccolta continua dei dati telemetrici in produzione, combinato con una pipeline di retraining periodico, consentirebbe di aggiornare il modello e la soglia di anomalia per riflettere l'evoluzione della flotta, migliorando la sensibilità del rilevamento e riducendo i falsi positivi su veicoli con profili operativi diversi da quelli presenti nel dataset di addestramento.
+
+\paragraph{Supporto allo streaming multi-veicolo simultaneo.}
+Il servizio di anomaly detection è già progettato per gestire più veicoli contemporaneamente, creando dinamicamente un'istanza di detector per ciascun veicolo alla ricezione del primo messaggio. Il servizio di streaming, tuttavia, supporta un solo stream alla volta: l'avvio di una seconda simulazione richiede l'arresto della prima. L'estensione a stream paralleli, ciascuno associato a un dataset e a un thread indipendente, consentirebbe di simulare scenari più realistici con più veicoli in viaggio simultaneamente, sollecitando il sistema di anomaly detection nella gestione concorrente di buffer e contatori multipli.
+
+\paragraph{Notifiche push in tempo reale.}
+Nel sistema attuale, il tecnico visualizza le notifiche interrogando periodicamente il backend tramite richieste REST. L'integrazione di un canale di notifiche push --- ad esempio tramite WebSocket o \textit{Server-Sent Events} --- consentirebbe di recapitare le allerte al tecnico nell'istante stesso in cui vengono generate, senza necessità di ricaricare la pagina o di implementare meccanismi di polling. Questo miglioramento risulterebbe particolarmente rilevante in contesti operativi in cui la tempestività dell'intervento è critica per la salvaguardia della merce trasportata.

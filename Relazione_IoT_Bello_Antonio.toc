@@ -1,0 +1,67 @@
+\babel@toc {italian}{}\relax 
+\babel@toc {italian}{}\relax 
+\contentsline {chapter}{\numberline {1}Introduzione}{3}{chapter.1}%
+\contentsline {chapter}{\numberline {2}Analisi dei Requisiti}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Requisiti Funzionali}{5}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Gestione degli utenti e autenticazione}{5}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Gestione della flotta}{5}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}Creazione e gestione delle tratte}{6}{subsection.2.1.3}%
+\contentsline {subsection}{\numberline {2.1.4}Ricerca e prenotazione delle spedizioni}{6}{subsection.2.1.4}%
+\contentsline {subsection}{\numberline {2.1.5}Monitoraggio telemetrico in tempo reale}{6}{subsection.2.1.5}%
+\contentsline {subsection}{\numberline {2.1.6}Rilevazione delle anomalie}{7}{subsection.2.1.6}%
+\contentsline {subsection}{\numberline {2.1.7}Gestione delle notifiche}{7}{subsection.2.1.7}%
+\contentsline {section}{\numberline {2.2}Requisiti Non Funzionali}{8}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Usabilità}{8}{subsection.2.2.1}%
+\contentsline {subsection}{\numberline {2.2.2}Sicurezza}{8}{subsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.2.3}Modularità e manutenibilità}{8}{subsection.2.2.3}%
+\contentsline {subsection}{\numberline {2.2.4}Portabilità e riproducibilità del deployment}{9}{subsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.2.5}Scalabilità del monitoraggio}{9}{subsection.2.2.5}%
+\contentsline {subsection}{\numberline {2.2.6}Affidabilità della comunicazione}{9}{subsection.2.2.6}%
+\contentsline {chapter}{\numberline {3}Stato dell'Arte}{10}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Flock Freight -- FlockDirect\textsuperscript {\textregistered } Shared Truckload}{10}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Quicargo -- Piattaforma collaborativa con pricing dinamico}{11}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Gillespie et al. -- Rilevazione anomalie IoT nel trasporto refrigerato}{12}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Tran et al. -- LSTM Autoencoder per anomaly detection nella supply chain}{13}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Sintesi e posizionamento della soluzione proposta}{13}{section.3.5}%
+\contentsline {chapter}{\numberline {4}Tecnologie Utilizzate}{15}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Spring Boot}{15}{section.4.1}%
+\contentsline {section}{\numberline {4.2}React e TypeScript}{16}{section.4.2}%
+\contentsline {section}{\numberline {4.3}MQTT e Mosquitto}{16}{section.4.3}%
+\contentsline {section}{\numberline {4.4}MongoDB}{17}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Python, FastAPI e PyTorch}{18}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Google Maps Platform}{18}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Docker e Docker Compose}{19}{section.4.7}%
+\contentsline {chapter}{\numberline {5}Soluzione Proposta}{20}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Architettura del sistema}{20}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Gestione degli utenti e autenticazione}{21}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Marketplace: ricerca e prenotazione delle tratte}{22}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Fase 1 --- Ricerca dei veicoli disponibili}{22}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Fase 2 --- Ricerca delle tratte condivise}{23}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Fase 3 --- Validazione geografica delle tratte condivise}{23}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Fase 4 --- Ricalcolo del percorso con waypoint}{23}{subsection.5.3.4}%
+\contentsline {subsection}{\numberline {5.3.5}Fase 5 --- Pricing con divisore esponenziale}{24}{subsection.5.3.5}%
+\contentsline {subsection}{\numberline {5.3.6}Selezione e conferma della tratta}{24}{subsection.5.3.6}%
+\contentsline {section}{\numberline {5.4}Generazione dei dati telemetrici}{24}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Pipeline di anomaly detection}{25}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Addestramento del modello}{25}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Inferenza in tempo reale}{26}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Smoothing con contatori consecutivi}{26}{subsection.5.5.3}%
+\contentsline {section}{\numberline {5.6}Gestione delle notifiche}{27}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Dashboard telemetrica}{27}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Deployment}{28}{section.5.8}%
+\contentsline {chapter}{\numberline {6}Validazione Funzionale}{29}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Ambiente di test}{29}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Scenario di validazione}{30}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Fase 1 --- Configurazione della flotta (Amministratore)}{30}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Fase 2 --- Prima spedizione: creazione della tratta (Cliente A)}{31}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Fase 3 --- Seconda spedizione: condivisione della tratta (Cliente B)}{31}{subsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.2.4}Fase 4 --- Gestione della tratta e avvio simulazione (Amministratore)}{32}{subsection.6.2.4}%
+\contentsline {subsection}{\numberline {6.2.5}Fase 5 --- Rilevazione anomalia e notifica (Tecnico)}{33}{subsection.6.2.5}%
+\contentsline {section}{\numberline {6.3}Esito della validazione}{34}{section.6.3}%
+\contentsline {chapter}{\numberline {7}Conclusioni e Sviluppi Futuri}{39}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Conclusioni}{39}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Sviluppi futuri}{40}{section.7.2}%
+\contentsline {paragraph}{Ottimizzazione temporale dei waypoint.}{40}{section*.14}%
+\contentsline {paragraph}{Retraining periodico del modello di anomaly detection.}{40}{section*.15}%
+\contentsline {paragraph}{Supporto allo streaming multi-veicolo simultaneo.}{41}{section*.16}%
+\contentsline {paragraph}{Notifiche push in tempo reale.}{41}{section*.17}%
