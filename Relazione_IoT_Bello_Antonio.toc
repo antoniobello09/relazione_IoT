@@ -19,47 +19,47 @@
 \contentsline {section}{\numberline {3.1}Flock Freight -- FlockDirect\textsuperscript {\textregistered } Shared Truckload}{8}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Quicargo -- Piattaforma collaborativa con pricing dinamico}{9}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Gillespie et al. -- Rilevazione anomalie IoT nel trasporto refrigerato}{9}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Tran et al. -- LSTM Autoencoder per anomaly detection nella supply chain}{10}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Sintesi e posizionamento della soluzione proposta}{11}{section.3.5}%
-\contentsline {chapter}{\numberline {4}Tecnologie Utilizzate}{13}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Spring Boot}{13}{section.4.1}%
-\contentsline {section}{\numberline {4.2}React e TypeScript}{14}{section.4.2}%
-\contentsline {section}{\numberline {4.3}MQTT e Mosquitto}{14}{section.4.3}%
-\contentsline {section}{\numberline {4.4}MongoDB}{15}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Python, FastAPI e PyTorch}{16}{section.4.5}%
-\contentsline {section}{\numberline {4.6}Google Maps Platform}{16}{section.4.6}%
-\contentsline {section}{\numberline {4.7}Docker e Docker Compose}{17}{section.4.7}%
-\contentsline {chapter}{\numberline {5}Soluzione Proposta}{18}{chapter.5}%
-\contentsline {section}{\numberline {5.1}Architettura del sistema}{18}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Gestione degli utenti e autenticazione}{19}{section.5.2}%
-\contentsline {section}{\numberline {5.3}Marketplace: ricerca e prenotazione delle tratte}{20}{section.5.3}%
-\contentsline {subsection}{\numberline {5.3.1}Fase 1 --- Ricerca dei veicoli disponibili}{20}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Fase 2 --- Ricerca delle tratte condivise}{21}{subsection.5.3.2}%
-\contentsline {subsection}{\numberline {5.3.3}Fase 3 --- Validazione geografica delle tratte condivise}{21}{subsection.5.3.3}%
-\contentsline {subsection}{\numberline {5.3.4}Fase 4 --- Ricalcolo del percorso con waypoint}{21}{subsection.5.3.4}%
-\contentsline {subsection}{\numberline {5.3.5}Fase 5 --- Pricing con divisore esponenziale}{22}{subsection.5.3.5}%
-\contentsline {subsection}{\numberline {5.3.6}Selezione e conferma della tratta}{22}{subsection.5.3.6}%
-\contentsline {section}{\numberline {5.4}Generazione dei dati telemetrici}{22}{section.5.4}%
-\contentsline {section}{\numberline {5.5}Pipeline di anomaly detection}{23}{section.5.5}%
-\contentsline {subsection}{\numberline {5.5.1}Addestramento del modello}{23}{subsection.5.5.1}%
-\contentsline {subsection}{\numberline {5.5.2}Inferenza in tempo reale}{24}{subsection.5.5.2}%
-\contentsline {subsection}{\numberline {5.5.3}Smoothing con contatori consecutivi}{24}{subsection.5.5.3}%
-\contentsline {section}{\numberline {5.6}Gestione delle notifiche}{25}{section.5.6}%
-\contentsline {section}{\numberline {5.7}Dashboard telemetrica}{25}{section.5.7}%
-\contentsline {section}{\numberline {5.8}Deployment}{26}{section.5.8}%
-\contentsline {chapter}{\numberline {6}Validazione Funzionale}{27}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Ambiente di test}{27}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Scenario di validazione}{28}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Fase 1 --- Configurazione della flotta (Amministratore)}{28}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Fase 2 --- Prima spedizione: creazione della tratta (Cliente A)}{29}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Fase 3 --- Seconda spedizione: condivisione della tratta (Cliente B)}{29}{subsection.6.2.3}%
-\contentsline {subsection}{\numberline {6.2.4}Fase 4 --- Gestione della tratta e avvio simulazione (Amministratore)}{30}{subsection.6.2.4}%
-\contentsline {subsection}{\numberline {6.2.5}Fase 5 --- Rilevazione anomalia e notifica (Tecnico)}{31}{subsection.6.2.5}%
-\contentsline {section}{\numberline {6.3}Esito della validazione}{32}{section.6.3}%
-\contentsline {chapter}{\numberline {7}Conclusioni e Sviluppi Futuri}{37}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Conclusioni}{37}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Sviluppi futuri}{38}{section.7.2}%
-\contentsline {paragraph}{Ottimizzazione temporale dei waypoint.}{38}{section*.14}%
-\contentsline {paragraph}{Retraining periodico del modello di anomaly detection.}{38}{section*.15}%
-\contentsline {paragraph}{Supporto allo streaming multi-veicolo simultaneo.}{39}{section*.16}%
-\contentsline {paragraph}{Notifiche push in tempo reale.}{39}{section*.17}%
+\contentsline {section}{\numberline {3.4}Sgueglia et al. -- Systematic literature review su anomaly detection IoT}{10}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Sintesi e posizionamento della soluzione proposta}{10}{section.3.5}%
+\contentsline {chapter}{\numberline {4}Tecnologie Utilizzate}{12}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Spring Boot}{12}{section.4.1}%
+\contentsline {section}{\numberline {4.2}React e TypeScript}{12}{section.4.2}%
+\contentsline {section}{\numberline {4.3}MQTT e Mosquitto}{13}{section.4.3}%
+\contentsline {section}{\numberline {4.4}MongoDB}{13}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Python, FastAPI e PyTorch}{14}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Google Maps Platform}{14}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Docker e Docker Compose}{15}{section.4.7}%
+\contentsline {chapter}{\numberline {5}Soluzione Proposta}{16}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Architettura del sistema}{16}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Gestione degli utenti e autenticazione}{17}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Marketplace: ricerca e prenotazione delle tratte}{18}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Fase 1 --- Ricerca dei veicoli disponibili}{18}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Fase 2 --- Ricerca delle tratte condivise}{19}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.3}Fase 3 --- Validazione geografica delle tratte condivise}{19}{subsection.5.3.3}%
+\contentsline {subsection}{\numberline {5.3.4}Fase 4 --- Ricalcolo del percorso con waypoint}{19}{subsection.5.3.4}%
+\contentsline {subsection}{\numberline {5.3.5}Fase 5 --- Pricing con divisore esponenziale}{20}{subsection.5.3.5}%
+\contentsline {subsection}{\numberline {5.3.6}Selezione e conferma della tratta}{20}{subsection.5.3.6}%
+\contentsline {section}{\numberline {5.4}Generazione dei dati telemetrici}{20}{section.5.4}%
+\contentsline {section}{\numberline {5.5}Pipeline di anomaly detection}{21}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Addestramento del modello}{21}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Inferenza in tempo reale}{22}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Smoothing con contatori consecutivi}{22}{subsection.5.5.3}%
+\contentsline {section}{\numberline {5.6}Gestione delle notifiche}{23}{section.5.6}%
+\contentsline {section}{\numberline {5.7}Dashboard telemetrica}{23}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Deployment}{24}{section.5.8}%
+\contentsline {chapter}{\numberline {6}Validazione Funzionale}{25}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Ambiente di test}{25}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Scenario di validazione}{26}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Fase 1 --- Configurazione della flotta (Amministratore)}{26}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Fase 2 --- Prima spedizione: creazione della tratta (Cliente A)}{27}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Fase 3 --- Seconda spedizione: condivisione della tratta (Cliente B)}{27}{subsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.2.4}Fase 4 --- Gestione della tratta e avvio simulazione (Amministratore)}{28}{subsection.6.2.4}%
+\contentsline {subsection}{\numberline {6.2.5}Fase 5 --- Rilevazione anomalia e notifica (Tecnico)}{29}{subsection.6.2.5}%
+\contentsline {section}{\numberline {6.3}Esito della validazione}{30}{section.6.3}%
+\contentsline {chapter}{\numberline {7}Conclusioni e Sviluppi Futuri}{35}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Conclusioni}{35}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Sviluppi futuri}{36}{section.7.2}%
+\contentsline {paragraph}{Ottimizzazione temporale dei waypoint.}{36}{section*.14}%
+\contentsline {paragraph}{Retraining periodico del modello di anomaly detection.}{36}{section*.15}%
+\contentsline {paragraph}{Supporto allo streaming multi-veicolo simultaneo.}{37}{section*.16}%
+\contentsline {paragraph}{Notifiche push in tempo reale.}{37}{section*.17}%

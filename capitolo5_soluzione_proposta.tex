@@ -1,7 +1,8 @@
 \chapter{Soluzione Proposta}
 \label{ch:soluzione}
 
-In questo capitolo viene descritta in dettaglio la soluzione realizzata, partendo dall'architettura complessiva del sistema per poi approfondire il funzionamento logico di ciascun componente e i principali dettagli implementativi. La piattaforma ChillChain si compone di due macro-funzionalità integrate: un marketplace per il trasporto condiviso refrigerato e un sistema di monitoraggio in tempo reale con rilevazione automatica delle anomalie.
+In questo capitolo viene descritta in dettaglio la soluzione realizzata, partendo dall'architettura complessiva del sistema per poi approfondire il funzionamento logico di ciascun componente e i principali dettagli implementativi. 
+La piattaforma ChillChain si compone di due macro-funzionalità integrate: un marketplace per il trasporto condiviso refrigerato e non e un sistema di monitoraggio in tempo reale con rilevazione automatica delle anomalie.
 
 % ============================================================================
 \section{Architettura del sistema}
@@ -12,8 +13,8 @@ L'architettura di ChillChain segue il paradigma a microservizi, in cui ciascun c
 \begin{figure}[ht]
 \centering
 % Inserire qui il diagramma architetturale
-% \includegraphics[width=\textwidth]{img/architettura.png}
-\fbox{\parbox{0.9\textwidth}{\centering\vspace{2cm}\textit{Diagramma architetturale del sistema}\vspace{2cm}}}
+\includegraphics[width=\textwidth]{img/architettura_IoT.png}
+
 \caption{Architettura a microservizi di ChillChain. Le frecce continue rappresentano comunicazioni HTTP/REST, le frecce tratteggiate i flussi MQTT.}
 \label{fig:architettura}
 \end{figure}

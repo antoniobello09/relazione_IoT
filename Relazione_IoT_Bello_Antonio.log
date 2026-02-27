@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.1)  26 FEB 2026 05:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.1)  27 FEB 2026 07:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -879,14 +879,13 @@ Package biblatex Info: Automatic encoding selection.
 \openout3 = `Relazione_IoT_Bello_Antonio.bcf'.
 
 Package biblatex Info: Trying to load bibliographic data...
-Package biblatex Info: ... file 'Relazione_IoT_Bello_Antonio.bbl' found.
+Package biblatex Info: ... file 'Relazione_IoT_Bello_Antonio.bbl' not found.
 
-(./Relazione_IoT_Bello_Antonio.bbl)
+No file Relazione_IoT_Bello_Antonio.bbl.
 Package biblatex Info: Reference section=0 on input line 47.
 Package biblatex Info: Reference segment=0 on input line 47.
 LaTeX Info: Redefining \it@ocap on input line 47.
 LaTeX Info: Redefining \it@ccap on input line 47.
-
 
 File italian.ldf warning: 
 italian.ldf    With OT1 encoding guillemets are poorly faked
@@ -922,7 +921,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.30 ...4.6}Google Maps Platform}{16}{section.4.6}
+l.30 ...4.6}Google Maps Platform}{14}{section.4.6}
                                                   % [1
 
 {c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
@@ -962,76 +961,105 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `superscript' on input line 6.
 
+
+LaTeX Warning: Citation 'flockfreight2024' on page 8 undefined on input line 8.
+
+
 [8
 
-] [9] [10]) (./capitolo4_tecnologie.tex [11] [12]
-Capitolo 4.
-[13
-
 ]
+
+LaTeX Warning: Citation 'quicargo2024' on page 9 undefined on input line 15.
+
+
+LaTeX Warning: Citation 'atasoy2020' on page 9 undefined on input line 15.
+
+
+LaTeX Warning: Citation 'gillespie2023' on page 9 undefined on input line 21.
+
+[9]
+
+LaTeX Warning: Citation 'sgueglia2022' on page 10 undefined on input line 28.
+
+[10]
+
+LaTeX Warning: Citation 'sgueglia2022' on page 11 undefined on input line 34.
+
+) (./capitolo4_tecnologie.tex [11]
+Capitolo 4.
+[12
+
+] [13]
+
+LaTeX Warning: Citation 'kaggle_fridge' on page 14 undefined on input line 35.
+
+
+Overfull \hbox (21.55594pt too wide) in paragraph at lines 35--36
+\OT1/cmr/m/n/12 ri-va-to dal da-ta-set Kag-gle \OT1/cmr/m/it/12 Si-mu-la-ted Re
+-fri-ge-ra-tor Fault Dia-gno-sis \OT1/cmr/m/n/12 [[]],
+ []
+
+[14]) (./capitolo5_soluzione_proposta.tex [15]
+Capitolo 5.
+<img/architettura_IoT.png, id=386, 733.74126pt x 297.11pt>
+File: img/architettura_IoT.png Graphic file (type png)
+<use img/architettura_IoT.png>
+Package pdftex.def Info: img/architettura_IoT.png  used on input line 16.
+(pdftex.def)             Requested size: 390.0pt x 157.9209pt.
+[16
+
+ <./img/architettura_IoT.png>] [17]
+LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
+62.
+
+(c:/texlive/2023/texmf-dist/tex/latex/base/ts1cmtt.fd
+File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+) [18] [19]
+
+LaTeX Warning: Citation 'kaggle_fridge' on page 20 undefined on input line 96.
+
+[20]
 LaTeX Font Info:    Trying to load font information for OMS+cmtt on input line 
-22.
-LaTeX Font Info:    No file OMScmtt.fd. on input line 22.
+100.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 100.
 
 
 LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbraceleft' on input line 22.
+(Font)              for symbol `textbraceleft' on input line 100.
 
-
-Overfull \hbox (96.51569pt too wide) in paragraph at lines 22--23
-\OT1/cmtt/m/n/12 fridge/\OMS/cmtt/m/n/12 f\OT1/cmtt/m/n/12 vehicleName\OMS/cmtt
-/m/n/12 g\OT1/cmtt/m/n/12 /telemetry \OT1/cmr/m/n/12 per i da-ti sen-so-ri-sti-
-ci e \OT1/cmtt/m/n/12 fridge/\OMS/cmtt/m/n/12 f\OT1/cmtt/m/n/12 vehicleName\OMS
-/cmtt/m/n/12 g\OT1/cmtt/m/n/12 /anomalies
- []
-
-[14] [15] [16]) (./capitolo5_soluzione_proposta.tex [17]
-Capitolo 5.
-[18
-
-] [19]
-LaTeX Font Info:    Trying to load font information for TS1+cmtt on input line 
-61.
- (c:/texlive/2023/texmf-dist/tex/latex/base/ts1cmtt.fd
-File: ts1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
-) [20] [21]
-[22] [23]
-Overfull \hbox (59.46404pt too wide) in paragraph at lines 126--127
+[21]
+Overfull \hbox (59.46404pt too wide) in paragraph at lines 127--128
 []\OT1/cmr/m/n/12 Il ri-sul-ta-to del-l'a-na-li-si vie-ne pub-bli-ca-to sul to-
 pic \OT1/cmtt/m/n/12 fridge/\OMS/cmtt/m/n/12 f\OT1/cmtt/m/n/12 vehicleName\OMS/
 cmtt/m/n/12 g\OT1/cmtt/m/n/12 /anomalies\OT1/cmr/m/n/12 ,
  []
 
-[24] [25]) (./capitolo6_validazione.tex [26]
+[22] [23]) (./capitolo6_validazione.tex [24]
 Capitolo 6.
-[27
+[25
 
-] [28] [29]
+] [26] [27]
 Overfull \hbox (4.05472pt too wide) in paragraph at lines 114--115
 []\OT1/cmr/m/n/12 L'amministratore av-via quin-di la si-mu-la-zio-ne del-la te-
 le-me-tria per \OT1/cmtt/m/n/12 camion5\OT1/cmr/m/n/12 ,
  []
 
-[30]
+[28]
 Overfull \hbox (33.73808pt too wide) in paragraph at lines 139--140
 []\OT1/cmr/m/n/12 A par-ti-re dal mi-nu-to 60, il da-ta-set iniet-ta il gua-sto
  \OT1/cmtt/m/n/12 UNDERCHARGE[]AND[]COND[]FOUL\OT1/cmr/m/n/12 :
  []
 
-[31] [32]) (./capitolo7_conclusioni.tex [33] [34] [35] [36]
+[29] [30]) (./capitolo7_conclusioni.tex [31] [32] [33] [34]
 Capitolo 7.
-[37
+[35
 
-] [38]) [39]
-Overfull \hbox (19.43073pt too wide) in paragraph at lines 119--119
-\OT1/cmr/m/sc/12 url\OT1/cmr/m/n/12 : []$\OT1/cmtt/m/n/12 https : / / www . kag
-gle . com / datasets / samoilovmikhail / simulated -[]
- []
+] [36]) [37]
 
-[40
+LaTeX Warning: Empty bibliography on input line 118.
 
-] (./Relazione_IoT_Bello_Antonio.aux)
+(./Relazione_IoT_Bello_Antonio.aux)
  ***********
 LaTeX2e <2023-11-01>
 L3 programming layer <2023-12-11>
@@ -1040,22 +1068,33 @@ L3 programming layer <2023-12-11>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `Relazione_IoT_Bello_Antonio.out' has not cha
 nged.
-(rerunfilecheck)             Checksum: 7333EE88E85A8E84A5498F5998CB22B5;13297.
+(rerunfilecheck)             Checksum: 381C2FA2002254C193DCB8037923F620;13294.
+
+Package biblatex Warning: Please (re)run Biber on the file:
+(biblatex)                Relazione_IoT_Bello_Antonio
+(biblatex)                and rerun LaTeX afterwards.
+
 Package logreq Info: Writing requests to 'Relazione_IoT_Bello_Antonio.run.xml'.
 
 \openout1 = `Relazione_IoT_Bello_Antonio.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 24246 strings out of 474175
- 417207 string characters out of 5749699
+ 24189 strings out of 474175
+ 415708 string characters out of 5749699
  1940460 words of memory out of 5000000
- 46104 multiletter control sequences out of 15000+600000
- 571322 words of font info for 84 fonts, out of 8000000 for 9000
+ 46061 multiletter control sequences out of 15000+600000
+ 570293 words of font info for 81 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,10n,81p,1499b,1621s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,10n,81p,1371b,1621s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/tex
 live/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:/texlive/202
 3/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><c:/texlive/2023/texmf-d
@@ -1063,19 +1102,18 @@ ist/fonts/type1/public/amsfonts/cm/cmmi8.pfb><c:/texlive/2023/texmf-dist/fonts/
 type1/public/amsfonts/cm/cmr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmr12.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfont
 s/cm/cmr8.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10
-.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><c:/t
-exlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/texlive/202
-3/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/2023/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><c:/texlive/2023/texmf-dist/fonts
-/type1/public/eurosym/feymr10.pfb><c:/texlive/2023/texmf-dist/fonts/type1/publi
-c/cm-super/sfbx1200.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super
-/sfrm0800.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfrm1200.
-pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfti0800.pfb><c:/te
-xlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on Relazione_IoT_Bello_Antonio.pdf (41 pages, 490601 bytes).
+.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb><c:/t
+exlive/2023/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb><c:/texlive/20
+23/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb><c:/texlive/2023/texmf-
+dist/fonts/type1/public/eurosym/feymr10.pfb><c:/texlive/2023/texmf-dist/fonts/t
+ype1/public/cm-super/sfbx1200.pfb><c:/texlive/2023/texmf-dist/fonts/type1/publi
+c/cm-super/sfrm0800.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super
+/sfrm1200.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1200.
+pfb>
+Output written on Relazione_IoT_Bello_Antonio.pdf (38 pages, 474877 bytes).
 PDF statistics:
- 650 PDF objects out of 1000 (max. 8388607)
- 563 compressed objects within 6 object streams
- 125 named destinations out of 1000 (max. 500000)
- 478 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 606 PDF objects out of 1000 (max. 8388607)
+ 524 compressed objects within 6 object streams
+ 115 named destinations out of 1000 (max. 500000)
+ 483 words of extra memory for PDF output out of 10000 (max. 10000000)
 

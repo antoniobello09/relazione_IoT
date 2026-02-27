@@ -2365,9 +2365,10 @@
     <bcf:citekey order="2" intorder="1">quicargo2024</bcf:citekey>
     <bcf:citekey order="3" intorder="1">atasoy2020</bcf:citekey>
     <bcf:citekey order="4" intorder="1">gillespie2023</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">tran2021</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">kaggle_fridge</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">sgueglia2022</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">sgueglia2022</bcf:citekey>
     <bcf:citekey order="7" intorder="1">kaggle_fridge</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">kaggle_fridge</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
