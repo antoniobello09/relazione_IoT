@@ -2,8 +2,7 @@
 \label{ch:soluzione}
 
 In questo capitolo viene descritta in dettaglio la soluzione realizzata, partendo dall'architettura complessiva del sistema per poi approfondire il funzionamento logico di ciascun componente e i principali dettagli implementativi. 
-La piattaforma ChillChain si compone di due macro-funzionalità integrate: un marketplace per il trasporto condiviso refrigerato e non e un sistema di monitoraggio in tempo reale con rilevazione automatica delle anomalie.
-
+La piattaforma ChillChain si compone di tre macro-funzionalità integrate: un sistema di gestione della flotta e dei viaggi riservato all'amministratore, un marketplace per il trasporto condiviso refrigerato e non, e un sistema di monitoraggio in tempo reale con rilevazione automatica delle anomalie.
 % ============================================================================
 \section{Architettura del sistema}
 \label{sec:architettura}
@@ -21,19 +20,17 @@ L'architettura di ChillChain segue il paradigma a microservizi, in cui ciascun c
 
 Il sistema è composto da sei servizi containerizzati, orchestrati tramite Docker Compose:
 
-Il \textbf{backend Spring Boot} (porta 8081) rappresenta il nucleo applicativo: espone le API REST per la gestione di veicoli, tratte, spedizioni, utenti e notifiche, implementa l'autenticazione JWT e la logica di autorizzazione basata sui ruoli, sottoscrive i topic MQTT per ricevere telemetria e risultati dell'anomaly detection, e persiste tutti i dati su MongoDB.
+Il \textbf{backend Spring Boot} (porta 8081) rappresenta il nucleo applicativo: espone le API REST per la gestione di veicoli, viaggi, spedizioni, utenti e notifiche, implementa l'autenticazione JWT e la logica di autorizzazione basata sui ruoli, sottoscrive i topic MQTT per ricevere telemetria e risultati dell'anomaly detection, e persiste tutti i dati su MongoDB.
 
-Il \textbf{frontend React} (porta 5173) fornisce l'interfaccia utente, differenziata per ruolo: l'amministratore gestisce la flotta e le tratte, il cliente cerca e prenota spedizioni, il tecnico monitora i veicoli e riceve le notifiche di anomalia.
+Il \textbf{frontend React} (porta 5173) fornisce l'interfaccia utente, differenziata per ruolo: l'amministratore gestisce la flotta e i viaggi, il cliente cerca e prenota spedizioni, il tecnico monitora i veicoli e riceve le notifiche di anomalia.
 
-Il \textbf{broker MQTT Mosquitto} (porta 1883) gestisce la comunicazione asincrona tra i servizi Python e il backend, instradando i messaggi attraverso topic gerarchici.
+Il \textbf{broker MQTT Mosquitto} (porta 1883) gestisce la comunicazione asincrona tra i servizi Python e il backend, instradando i messaggi attraverso topic.
 
 Il \textbf{servizio di streaming} (porta 8002) simula i sensori a bordo dei veicoli, leggendo dataset CSV e pubblicando i dati telemetrici sul broker MQTT con una cadenza di un messaggio al secondo.
 
 Il \textbf{servizio di anomaly detection} (porta 8003) sottoscrive la telemetria pubblicata dallo streamer, la analizza con il modello LSTM Autoencoder e pubblica i risultati su un topic dedicato.
 
 Infine, \textbf{MongoDB} (porta 27017) funge da database centralizzato, organizzato in sei collezioni: \texttt{user}, \texttt{vehicle}, \texttt{trip}, \texttt{shipment}, \texttt{telemetry} e \texttt{notification}.
-
-La comunicazione tra i servizi avviene su due canali distinti: le API REST, utilizzate per le interazioni sincrone tra frontend e backend, e il protocollo MQTT, impiegato per i flussi di dati telemetrici che richiedono comunicazione asincrona e disaccoppiamento tra produttori e consumatori. Questa separazione consente di avviare, fermare o sostituire i servizi Python senza impattare sul funzionamento del backend o del frontend.
 
 
 % ============================================================================
@@ -43,31 +40,52 @@ La comunicazione tra i servizi avviene su due canali distinti: le API REST, util
 Il sistema prevede tre ruoli distinti, ciascuno con un perimetro di azioni e una vista dell'interfaccia dedicati:
 
 \begin{itemize}
-    \item \textbf{ADMIN}: gestisce la flotta (aggiunta e rimozione di veicoli), visualizza e cancella tratte e spedizioni, avvia e interrompe le simulazioni di telemetria.
-    \item \textbf{CLIENT}: ricerca tratte compatibili con le proprie esigenze di spedizione, confronta le opzioni disponibili (veicoli vuoti e tratte condivise) e prenota la spedizione.
+    \item \textbf{ADMIN}: gestisce la flotta (aggiunta e rimozione di veicoli), visualizza l'elenco dei viaggi programmati.
+    \item \textbf{CLIENT}: ricerca viaggi compatibili con le proprie esigenze di spedizione, confronta le opzioni disponibili (inizializzazione di un nuovo viaggio o condividere un viaggio già esistente con altre spedizioni) e prenota la spedizione.
     \item \textbf{TECHNICIAN}: accede alla dashboard di monitoraggio, visualizza lo storico telemetrico dei veicoli e gestisce le notifiche di anomalia.
 \end{itemize}
 
-L'autenticazione è implementata tramite token JWT (\textit{JSON Web Token}) con sessioni stateless. All'atto del login, il backend verifica le credenziali --- la password è memorizzata con hashing BCrypt --- e genera un token firmato contenente l'email dell'utente e il suo ruolo. Il token viene incluso nell'header \texttt{Authorization} di ogni richiesta successiva e validato da un filtro che precede l'elaborazione della richiesta stessa. La catena di sicurezza Spring Security definisce quali endpoint sono accessibili a ciascun ruolo: ad esempio, le operazioni di gestione della flotta richiedono il ruolo \texttt{ADMIN}, mentre l'accesso alla telemetria e alle notifiche è riservato al ruolo \texttt{TECHNICIAN}. Gli endpoint di registrazione, autenticazione e ricerca tratte sono invece pubblici, così da consentire l'onboarding autonomo dei clienti.
+L'autenticazione è implementata tramite token JWT (\textit{JSON Web Token}). All'atto del login, il backend verifica le credenziali --- la password è memorizzata con hashing Argon2 --- e genera un token firmato contenente l'email dell'utente e il suo ruolo. Il token viene incluso nell'header \texttt{Authorization} di ogni richiesta successiva e validato da un filtro che precede l'elaborazione della richiesta stessa. La catena di sicurezza Spring Security definisce quali endpoint sono accessibili a ciascun ruolo: ad esempio, le operazioni di gestione della flotta richiedono il ruolo \texttt{ADMIN}, mentre l'accesso alla telemetria e alle notifiche è riservato al ruolo \texttt{TECHNICIAN}. Gli endpoint di autenticazione e di prenotazione delle spedizioni sono invece pubblici.
 
 
 % ============================================================================
-\section{Marketplace: ricerca e prenotazione delle tratte}
+\section{Gestione della flotta e dei viaggi}
+\label{sec:gestione_flotta}
+
+L'amministratore dispone di tre schermate dedicate alla gestione operativa della piattaforma: la registrazione di nuovi veicoli, la consultazione della flotta e il monitoraggio dei viaggi programmati.
+
+\subsection{Aggiunta di un veicolo}
+
+Il form di registrazione raccoglie i dati caratteristici del veicolo: nome identificativo, dimensioni del vano di carico (lunghezza, larghezza e altezza in centimetri), portata massima in chilogrammi, presenza di un impianto di refrigerazione e costo chilometrico in euro. Il frontend esegue una validazione preliminare che impedisce l'invio del form se uno qualsiasi dei campi risulta vuoto o non valido. Al completamento, il backend verifica l'unicità del nome e persiste il documento nella collezione \texttt{vehicle} di MongoDB. In caso di successo, l'interfaccia mostra un modale di conferma e azzera tutti i campi, consentendo l'immediata registrazione di un ulteriore mezzo.
+
+\subsection{Lista veicoli}
+
+La schermata di gestione della flotta elenca tutti i veicoli registrati in forma tabellare, esponendo per ciascuno le dimensioni, la portata, il prezzo per chilometro e la presenza della refrigerazione. Per ogni veicolo è disponibile un'azione di eliminazione: prima di procedere, l'interfaccia richiede una conferma esplicita tramite un modale dedicato. Lato backend, l'operazione è implementata come cancellazione a cascata: vengono rimossi, nell'ordine, tutti gli shipment associati al veicolo, il trip corrispondente e infine il documento veicolo stesso, garantendo la coerenza referenziale dei dati.
+
+\subsection{Lista viaggi}
+
+La schermata dei viaggi presenta tutti i viaggi in programma con le informazioni principali: veicolo assegnato, data di arrivo prevista, distanza totale del percorso e capacità residua. Ciascuna riga è espandibile: selezionando un viaggio, il sistema recupera dal backend la lista degli shipment associati e li mostra in una sotto-tabella con indirizzo di partenza, indirizzo di arrivo, dimensioni del pacco e prezzo. Da questa vista l'amministratore può eliminare l'intero trip con tutti gli shipment collegati.
+
+Per ogni viaggio è inoltre disponibile un'anteprima cartografica: un popup mostra il percorso complessivo decodificato dalla polyline del viaggio su Google Maps. Analogamente, ciascuno shipment espone una propria anteprima cartografica che evidenzia il tratto specifico della spedizione, con marcatori distinti per il punto di ritiro e quello di consegna. 
+\section{Marketplace: ricerca dei viaggi disponibili e creazione della spedizione}
 \label{sec:marketplace}
 
-Il cuore commerciale della piattaforma è il meccanismo che consente ai clienti di cercare tratte compatibili con le proprie esigenze e di prenotare spedizioni, eventualmente condividendo il veicolo con altri clienti. Il flusso si articola in cinque fasi.
+Il cuore commerciale della piattaforma è il meccanismo che consente ai clienti di creare spedizioni.
 
 \subsection{Fase 1 --- Ricerca dei veicoli disponibili}
 
-Quando un cliente inserisce i dati della propria spedizione (indirizzo di partenza e arrivo, dimensioni, peso, necessità di refrigerazione e data di arrivo desiderata), il backend esegue una prima query per individuare i veicoli della flotta che soddisfano i requisiti dimensionali e non hanno ancora alcuna tratta assegnata. Questa query è implementata come aggregation pipeline su MongoDB: il primo stadio filtra i veicoli per peso massimo, dimensioni e tipologia di refrigerazione; il secondo esegue un \texttt{\$lookup} sulla collezione \texttt{trip}; il terzo seleziona solo i veicoli il cui array di tratte risulta vuoto. Per ciascun veicolo disponibile, il sistema invoca la Routes API di Google Maps per calcolare il percorso tra la partenza e l'arrivo indicati dal cliente, ottenendo distanza, durata e polyline codificata. Il prezzo viene calcolato come $\text{prezzo} = \text{distanceKm} \times \text{pricePerKm}$, dove \texttt{pricePerKm} è il costo chilometrico associato al veicolo.
+Quando un cliente inserisce i dati della propria spedizione (indirizzo di partenza e arrivo, dimensioni, peso, necessità di refrigerazione e data di arrivo desiderata), il backend esegue una prima query per individuare i veicoli della flotta che soddisfano i requisiti e che non hanno ancora alcuna viaggio assegnato. Questa query è implementata come aggregation pipeline su MongoDB: il primo stadio filtra i veicoli per peso massimo, volume disponibile e tipologia di refrigerazione; 
+il secondo esegue un \texttt{\$lookup} sulla collezione \texttt{trip}; il terzo seleziona solo i veicoli il cui array di viaggi (trip) risulta vuoto. Per ciascun veicolo disponibile, il sistema invoca la Routes API di Google Maps per calcolare il percorso tra la partenza e l'arrivo indicati dal cliente, ottenendo distanza, durata e polyline codificata. Il prezzo viene calcolato come $\text{prezzo} = \text{distanceKm} \times \text{pricePerKm}$, dove \texttt{pricePerKm} è il costo chilometrico associato al veicolo.
 
-\subsection{Fase 2 --- Ricerca delle tratte condivise}
+\subsection{Fase 2 --- Ricerca dei viaggi già programmati}
 
-Parallelamente, il sistema cerca tratte già programmate che abbiano capacità residua sufficiente e data di arrivo compatibile. Anche questa ricerca è implementata come aggregation pipeline: il primo stadio esegue un \texttt{\$lookup} con la collezione \texttt{vehicle} per recuperare la tipologia di refrigerazione; il secondo filtra per capacità residua, refrigerazione e data; il terzo esegue un ulteriore \texttt{\$lookup} con la collezione \texttt{shipment} per calcolare il prezzo scontato come $\text{price} = \min(\text{shipments.price}) \div 2$.
+Parallelamente, il sistema cerca viaggi già programmati che abbiano capacità residua sufficiente e data di arrivo compatibile. 
+Anche questa ricerca è implementata come aggregation pipeline: il primo stadio esegue un \texttt{\$lookup} con la collezione \texttt{vehicle} per recuperare la tipologia di refrigerazione; il secondo filtra per capacità residua, refrigerazione e data.
 
-\subsection{Fase 3 --- Validazione geografica delle tratte condivise}
+\subsection{Fase 3 --- Validazione geografica dei viaggi già programmati}
 
-Le tratte condivise individuate nella fase precedente vengono ulteriormente filtrate verificando la compatibilità geografica con la spedizione richiesta. Per ciascuna tratta candidata, il sistema decodifica la polyline del percorso attuale e calcola la distanza geodetica (formula di Haversine) tra i punti di ritiro e consegna del nuovo pacco e il tracciato della tratta. Se entrambi i punti distano meno di 1,5~km dalla polyline, la tratta è considerata geograficamente compatibile. Un ulteriore controllo verifica che il punto di ritiro preceda quello di consegna lungo il percorso, impedendo deviazioni illogiche.
+I viaggi già programmati individuati nella fase precedente vengono ulteriormente filtrati verificando la compatibilità geografica con la spedizione richiesta. 
+Per ciascun viaggio candidato, il sistema decodifica la polyline del percorso e calcola la distanza geodetica (formula di Haversine) tra i punti di ritiro e consegna del nuovo pacco e il tracciato del viaggio. Se entrambi i punti distano meno di 1,5~km dalla polyline, la tratta è considerata geograficamente compatibile. Un ulteriore controllo verifica che il punto di ritiro preceda quello di consegna lungo il percorso, impedendo deviazioni illogiche.
 
 \subsection{Fase 4 --- Ricalcolo del percorso con waypoint}
 
@@ -86,16 +104,18 @@ Dove $\text{distanceKm}_{\text{shipment}}$ è la distanza del tratto specifico d
 
 \subsection{Selezione e conferma della tratta}
 
-Il cliente visualizza tutte le opzioni --- veicoli vuoti e tratte condivise --- ordinate per prezzo, e può esaminare il percorso su mappa prima di confermare. Al momento della selezione, il backend esegue un'operazione transazionale: se la tratta è nuova (veicolo senza trip assegnato), viene creata una nuova entità \texttt{Trip} con la capacità residua decrementata delle dimensioni del pacco; se la tratta è condivisa, viene aggiornata l'entità \texttt{Trip} esistente con il nuovo percorso (inclusivo dei waypoint) e la capacità residua aggiornata. In entrambi i casi, viene creata un'entità \texttt{Shipment} associata alla tratta.
+Il cliente visualizza tutte le opzioni --- viaggi nuovi e viaggi già esistenti. 
+Al momento della selezione, il backend esegue l'operazione seguente: se il viaggio è nuovo (veicolo senza trip assegnato), viene creata una nuova entità \texttt{Trip}; 
+se il viaggio è già esistente, viene aggiornata l'entità \texttt{Trip} esistente con il nuovo percorso (inclusivo dei waypoint) e la capacità residua aggiornata. In entrambi i casi, viene creata un'entità \texttt{Shipment} associato al viaggio.
 
 
 % ============================================================================
 \section{Generazione dei dati telemetrici}
 \label{sec:generazione_dati}
 
-La simulazione della telemetria di bordo si basa su un modello termodinamico che riproduce il comportamento fisico di un impianto frigorifero a compressione di vapore. Il generatore, derivato dal dataset Kaggle \textit{Simulated Refrigerator Fault Diagnosis} \cite{kaggle_fridge} ed esteso per le esigenze del progetto, modella i seguenti fenomeni: lo scambio termico tra l'ambiente esterno e la cella frigorifera attraverso le pareti (parametrizzato dal coefficiente $UA_{\text{cab}}$), il ciclo di compressione con controllo proporzionale della velocità del compressore rispetto al setpoint di temperatura, il calcolo del COP (\textit{Coefficient of Performance}) basato sul ciclo di Carnot con fattore di efficienza, l'accumulo e lo scioglimento del ghiaccio sull'evaporatore, le aperture casuali della porta con carichi termici variabili e i cicli periodici di sbrinamento.
-
-Il generatore produce dataset CSV contenenti 120 campioni (120 minuti con campionamento a 60 secondi), strutturati in due fasi: i primi 60 minuti in condizioni normali, seguiti da 60 minuti con un guasto iniettato. Sono previste 13 tipologie di guasto, tra cui: fouling del condensatore (lieve e severo), degradazione e guasto della ventola dell'evaporatore, sottocariamento e sovracariamento del refrigerante, deriva del sensore di temperatura, inefficienza del compressore, presenza di gas non condensabili e guasti compositi. Ciascun guasto è parametrizzato con un range stocastico, generando variabilità tra le simulazioni.
+La simulazione della telemetria di bordo si basa su un modello termodinamico che riproduce il comportamento fisico di un impianto frigorifero a compressione di vapore. 
+Il generatore, derivato dal dataset Kaggle \textit{Simulated Refrigerator Fault Diagnosis} \cite{kaggle_fridge}, produce dataset CSV contenenti 120 campioni da 15 feature ciascuno (un campione rappresenta dati estratti in un certo minuto), strutturati in due fasi: i primi 60 minuti in condizioni normali, seguiti da 60 minuti con un guasto iniettato. 
+Sono previste varie tipologie di guasto, tra cui: fouling del condensatore (lieve e severo), degradazione e guasto della ventola dell'evaporatore, ecc. 
 
 Il servizio di streaming legge questi CSV e pubblica ciascuna riga sul topic MQTT \texttt{fridge/\{vehicleName\}/telemetry} con un intervallo configurabile (default: 1 secondo), includendo un timestamp ISO e un indice di riga progressivo. Al termine del dataset, pubblica un messaggio di completamento con \texttt{stream\_status: "completed"}, che segnala agli altri servizi la fine dello stream.
 
@@ -110,10 +130,7 @@ La rilevazione delle anomalie si articola in tre fasi: l'addestramento offline d
 
 Il modello LSTM Autoencoder è stato addestrato su Google Colab con GPU Tesla T4, utilizzando un dataset composto esclusivamente da dati di funzionamento normale. L'architettura del modello è la seguente: un encoder LSTM con 15 feature in ingresso e hidden size pari a 16, uno strato lineare di compressione che riduce la rappresentazione a uno spazio latente di dimensione 8, due strati lineari che inizializzano hidden state e cell state del decoder a partire dalla rappresentazione latente, un decoder LSTM con hidden size 16 alimentato da una sequenza di zeri (la ricostruzione dipende interamente dallo stato latente) e uno strato lineare di output che proietta la dimensione nascosta nelle 15 feature originali.
 
-L'addestramento è stato condotto per 100 epoche con batch size di 64 e finestre temporali di 30 campioni. L'ottimizzatore Adam con learning rate iniziale $10^{-3}$ è stato affiancato da uno scheduler \texttt{ReduceLROnPlateau} che dimezza il learning rate dopo 5 epoche senza miglioramento della validation loss. Il training utilizza mixed precision (\texttt{GradScaler}) per accelerare il calcolo su GPU. Un meccanismo di early stopping con pazienza di 10 epoche previene l'overfitting. Il dataset di training è stato suddiviso 80/20 in modo sequenziale (senza shuffle, per preservare la struttura temporale). La validation loss finale è risultata pari a circa 0,00398, con un tempo di addestramento complessivo di circa 715 secondi. Le 15 feature in ingresso vengono normalizzate mediante uno \texttt{StandardScaler} di scikit-learn, serializzato con Pickle e caricato a runtime dal servizio di inferenza.
-
-La soglia di anomalia è stata determinata calcolando l'MSE di ricostruzione su tutto il dataset di training normale e prendendo il 95\textdegree{} percentile della distribuzione risultante ($\text{threshold} = 0,009868$). Questo approccio garantisce che il 95\% delle osservazioni normali produca un errore inferiore alla soglia, limitando il tasso di falsi positivi al 5\% teorico in condizioni nominali.
-
+La soglia di anomalia è stata determinata calcolando l'MSE di ricostruzione su tutto il dataset di training normale e prendendo il 95\textdegree{} percentile della distribuzione risultante ($\text{threshold} = 0,009868$).
 \subsection{Inferenza in tempo reale}
 
 Il servizio di anomaly detection sottoscrive il topic \texttt{fridge/+/telemetry} tramite il broker MQTT, ricevendo i dati di tutti i veicoli. Per ciascun veicolo viene creato dinamicamente un'istanza di \texttt{VehicleAnomalyDetector} alla ricezione del primo messaggio, garantendo il supporto simultaneo di più veicoli con buffer e contatori indipendenti.
@@ -131,28 +148,18 @@ Il risultato dell'analisi viene pubblicato sul topic \texttt{fridge/\{vehicleNam
 \section{Gestione delle notifiche}
 \label{sec:notifiche}
 
-Il backend sottoscrive il topic \texttt{fridge/+/anomalies} tramite un channel adapter Spring Integration dedicato. Alla ricezione di un messaggio di anomalia, il service activator verifica la presenza del campo \texttt{alertMessage}: se presente, indica una transizione di stato (da normale ad anomalia) e genera una nuova notifica persistente su MongoDB con i campi: nome del veicolo, timestamp, errore di ricostruzione, indice di riga e messaggio di allerta. Un meccanismo di fallback verifica se il messaggio di transizione è stato perso (ad esempio per un'interruzione temporanea della rete): se il flag \texttt{anomalyDetected} è attivo ma non esistono notifiche non lette per quel veicolo, ne viene creata una generica.
-
-L'interfaccia del tecnico presenta le notifiche in ordine cronologico con un badge numerico che indica il conteggio delle notifiche non lette. Ciascuna notifica può essere contrassegnata come letta tramite un'azione dedicata, aggiornando lo stato sul database. Da una notifica, il tecnico può accedere direttamente alla dashboard telemetrica del veicolo interessato per analizzare lo storico dei dati e indagare la causa dell'anomalia.
+Il backend sottoscrive il topic \texttt{fridge/+/anomalies} tramite un channel adapter Spring Integration dedicato. 
+Alla ricezione di un messaggio di anomalia, il backend verifica la presenza del campo \texttt{alertMessage}: se presente, indica una transizione di stato (da normale ad anomalia) e genera una nuova notifica persistente su MongoDB con i campi: nome del veicolo, timestamp, errore di ricostruzione, indice di riga e messaggio di allerta. 
+L'interfaccia del tecnico presenta le notifiche in ordine cronologico con un badge numerico che indica il conteggio delle notifiche non lette. Ciascuna notifica può essere contrassegnata come letta tramite un'azione dedicata, aggiornando lo stato sul database. 
 
 
 % ============================================================================
 \section{Dashboard telemetrica}
 \label{sec:dashboard}
 
-La dashboard di monitoraggio consente al tecnico di visualizzare lo storico telemetrico dei veicoli tramite grafici temporali interattivi. L'interfaccia è organizzata in due livelli: un selettore del veicolo, che elenca i veicoli con tratte attive, e un pannello di visualizzazione con grafici ad area realizzati tramite Recharts.
+La dashboard di monitoraggio consente al tecnico di visualizzare lo storico telemetrico dei veicoli tramite grafici temporali interattivi. L'interfaccia è organizzata in due livelli: un selettore del veicolo, che elenca i veicoli con refrigerazione, e un pannello di visualizzazione con grafici ad area realizzati tramite Recharts.
 
-Per ciascun veicolo selezionato, il frontend richiede al backend l'elenco completo dei dati telemetrici memorizzati, ordinati cronologicamente. I dati vengono renderizzati in grafici con codifica cromatica basata sullo stato di guasto: i tratti in condizioni normali appaiono in verde, mentre quelli associati a valori anomali vengono evidenziati in rosso. Il tecnico può filtrare la visualizzazione per singolo parametro (ad esempio, visualizzare solo la temperatura della cella o solo la pressione di scarico) oppure visualizzare tutti i 15 parametri simultaneamente. L'asse temporale mostra il numero progressivo del campione, consentendo di individuare rapidamente il momento in cui il comportamento del sistema è cambiato.
+Per ciascun veicolo selezionato, il frontend richiede al backend l'elenco completo dei dati telemetrici memorizzati, ordinati cronologicamente. 
+Il tecnico può filtrare la visualizzazione per categoria di parametro (ad esempio, temperature o pressioni) e per intervallo temporale. 
 
 
-% ============================================================================
-\section{Deployment}
-\label{sec:deployment}
-
-L'intero sistema viene eseguito in container Docker orchestrati da Docker Compose. Il file di configurazione definisce i sei servizi, le porte esposte, le variabili d'ambiente e i volumi persistenti per MongoDB. La rete Docker interna consente ai servizi di comunicare tramite i nomi dei container: il backend raggiunge MongoDB tramite l'hostname \texttt{mongodb}, il broker MQTT tramite \texttt{mosquitto} e il servizio di streaming tramite \texttt{fridge-streamer}. L'avvio dell'intero sistema richiede un singolo comando:
-
-\begin{verbatim}
-docker-compose up --build
-\end{verbatim}
-
-Questa configurazione garantisce la riproducibilità dell'ambiente su qualsiasi macchina dotata del runtime Docker, eliminando le problematiche legate alla configurazione manuale delle dipendenze e delle connessioni di rete tra i servizi.
