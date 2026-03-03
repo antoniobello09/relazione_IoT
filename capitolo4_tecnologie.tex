@@ -38,10 +38,13 @@ Il servizio di anomaly detection (\texttt{anomaly\_main.py}) è anch'esso un'app
 
 \section{Google Maps Platform}
 
-Le API di Google Maps Platform sono utilizzate per il calcolo dei percorsi e la geolocalizzazione degli indirizzi inseriti dagli utenti. In particolare, il servizio di backend impiega due API distinte: la \textit{Geocoding API}, che converte gli indirizzi testuali in coordinate geografiche (latitudine e longitudine), e la \textit{Routes API}, che calcola il percorso ottimale tra due o più punti restituendo la distanza in metri, la durata stimata e la polyline codificata del tracciato.
+Le API di Google Maps Platform sono utilizzate per il calcolo dei percorsi, la geolocalizzazione degli indirizzi e l'assistenza all'inserimento degli stessi da parte degli utenti. Il sistema impiega tre servizi distinti, distribuiti tra frontend e backend.
 
-Nel flusso operativo di ChillChain, queste API vengono invocate in due momenti: alla creazione di una nuova tratta da parte dell'amministratore, per calcolare il percorso base tra partenza e arrivo, e all'inserimento di una nuova spedizione in un viaggio già esistente, per ricalcolare il percorso con i waypoint intermedi corrispondenti ai punti di ritiro e consegna del nuovo pacco. 
+Sul lato frontend, il componente di inserimento spedizione integra la \textit{Places Autocomplete API}, che fornisce suggerimenti in tempo reale durante la digitazione degli indirizzi di ritiro e consegna. Oltre a migliorare l'esperienza utente riducendo errori di battitura e ambiguità, il servizio restituisce direttamente le coordinate geografiche associate all'indirizzo selezionato, eliminando la necessità di una successiva chiamata di geocodifica.
 
+Sul lato backend vengono utilizzate due API aggiuntive: la \textit{Geocoding API}, che converte gli indirizzi testuali in coordinate geografiche (latitudine e longitudine) nei casi in cui le coordinate non siano già disponibili dal frontend, e la \textit{Routes API}, che calcola il percorso ottimale tra due o più punti restituendo la distanza in metri, la durata stimata e la polyline codificata del tracciato.
+
+Nel flusso operativo di ChillChain, queste API vengono invocate in due momenti: alla creazione di una nuova tratta da parte dell'amministratore, per calcolare il percorso base tra partenza e arrivo, e all'inserimento di una nuova spedizione in un viaggio già esistente, per ricalcolare il percorso con i waypoint intermedi corrispondenti ai punti di ritiro e consegna del nuovo pacco.
 \section{Docker e Docker Compose}
 
 Docker è la piattaforma di containerizzazione impiegata per isolare ciascun componente dell'architettura in un ambiente di esecuzione autonomo e riproducibile. Ogni servizio della piattaforma viene eseguito all'interno di un container dedicato, con le proprie dipendenze e la propria configurazione.

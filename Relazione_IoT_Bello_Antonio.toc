@@ -52,17 +52,18 @@
 \contentsline {section}{\numberline {5.8}Dashboard telemetrica}{24}{section.5.8}%
 \contentsline {chapter}{\numberline {6}Validazione Funzionale}{25}{chapter.6}%
 \contentsline {section}{\numberline {6.1}Ambiente di test}{25}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Scenario di validazione}{26}{section.6.2}%
+\contentsline {section}{\numberline {6.2}Scenario di validazione}{25}{section.6.2}%
 \contentsline {subsection}{\numberline {6.2.1}Fase 1 --- Configurazione della flotta (Amministratore)}{26}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Fase 2 --- Prima spedizione: creazione della tratta (Cliente A)}{27}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.2}Fase 2 --- Prima spedizione: creazione della tratta (Cliente A)}{26}{subsection.6.2.2}%
 \contentsline {subsection}{\numberline {6.2.3}Fase 3 --- Seconda spedizione: condivisione della tratta (Cliente B)}{27}{subsection.6.2.3}%
-\contentsline {subsection}{\numberline {6.2.4}Fase 4 --- Gestione della tratta e avvio simulazione (Amministratore)}{28}{subsection.6.2.4}%
-\contentsline {subsection}{\numberline {6.2.5}Fase 5 --- Rilevazione anomalia e notifica (Tecnico)}{29}{subsection.6.2.5}%
-\contentsline {section}{\numberline {6.3}Esito della validazione}{30}{section.6.3}%
-\contentsline {chapter}{\numberline {7}Conclusioni e Sviluppi Futuri}{35}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Conclusioni}{35}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Sviluppi futuri}{36}{section.7.2}%
-\contentsline {paragraph}{Ottimizzazione temporale dei waypoint.}{36}{section*.14}%
-\contentsline {paragraph}{Retraining periodico del modello di anomaly detection.}{36}{section*.15}%
-\contentsline {paragraph}{Supporto allo streaming multi-veicolo simultaneo.}{37}{section*.16}%
-\contentsline {paragraph}{Notifiche push in tempo reale.}{37}{section*.17}%
+\contentsline {subsection}{\numberline {6.2.4}Fase 4 --- Visualizzazione dei viaggi programmati e avvio simulazione}{28}{subsection.6.2.4}%
+\contentsline {subsection}{\numberline {6.2.5}Fase 5 --- Rilevazione anomalia e notifica (Tecnico)}{28}{subsection.6.2.5}%
+\contentsline {chapter}{\numberline {7}Conclusioni e Sviluppi Futuri}{33}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Conclusioni}{33}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Sviluppi futuri}{33}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Ottimizzazione temporale e scheduling attivo}{33}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Scalabilità su piattaforme cloud}{34}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Miglioramento della sensibilità dell'anomaly detection}{34}{subsection.7.2.3}%
+\contentsline {subsection}{\numberline {7.2.4}Indicizzazione spaziale con PostGIS}{34}{subsection.7.2.4}%
+\contentsline {subsection}{\numberline {7.2.5}Portale cliente per il tracking delle spedizioni}{34}{subsection.7.2.5}%
+\contentsline {subsection}{\numberline {7.2.6}Sistema di notifiche push per il tecnico}{35}{subsection.7.2.6}%
