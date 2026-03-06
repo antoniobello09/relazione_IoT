@@ -58,6 +58,27 @@
       \verb 10.1177/0361198120935116
       \endverb
     \endentry
+    \entry{carrierlynx2024}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=36d70adc4abbb7d3cfd6444cd042bbd6}{%
+           family={{Carrier Global Corporation}},
+           familyi={C\bibinitperiod}}}%
+      }
+      \strng{namehash}{36d70adc4abbb7d3cfd6444cd042bbd6}
+      \strng{fullhash}{36d70adc4abbb7d3cfd6444cd042bbd6}
+      \strng{bibnamehash}{36d70adc4abbb7d3cfd6444cd042bbd6}
+      \strng{authorbibnamehash}{36d70adc4abbb7d3cfd6444cd042bbd6}
+      \strng{authornamehash}{36d70adc4abbb7d3cfd6444cd042bbd6}
+      \strng{authorfullhash}{36d70adc4abbb7d3cfd6444cd042bbd6}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{\url{https://www.carrier.com/carrier/en/worldwide/cold-chain/connected-cold-chain/lynx/}}
+      \field{note}{Accessed: 2026-03-06}
+      \field{title}{Carrier Lynx: Digital Platform for the Connected Cold Chain}
+      \field{year}{2024}
+    \endentry
     \entry{flockfreight2024}{online}{}
       \name{author}{1}{}{%
         {{hash=7f11bf0828245d3f5efb5646f182cd99}{%

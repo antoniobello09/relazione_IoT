@@ -18,9 +18,10 @@
 \contentsline {chapter}{\numberline {3}Stato dell'Arte}{9}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Flock Freight -- FlockDirect\textsuperscript {\textregistered } Shared Truckload}{9}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Quicargo -- Piattaforma collaborativa con pricing dinamico}{10}{section.3.2}%
-\contentsline {section}{\numberline {3.3}Gillespie et al. -- Rilevazione anomalie IoT nel trasporto refrigerato}{10}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Sgueglia et al. -- Systematic literature review su anomaly detection IoT}{11}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Sintesi e posizionamento della soluzione proposta}{11}{section.3.5}%
+\contentsline {section}{\numberline {3.3}Carrier Lynx Fleet -- Piattaforma digitale per il monitoraggio della catena del freddo}{10}{section.3.3}%
+\contentsline {section}{\numberline {3.4}Gillespie et al. -- Rilevazione anomalie IoT nel trasporto refrigerato}{11}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Sgueglia et al. -- Systematic literature review su anomaly detection IoT}{11}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Sintesi e posizionamento della soluzione proposta}{12}{section.3.6}%
 \contentsline {chapter}{\numberline {4}Tecnologie Utilizzate}{13}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Spring Boot}{13}{section.4.1}%
 \contentsline {section}{\numberline {4.2}React e TypeScript}{13}{section.4.2}%
@@ -31,39 +32,39 @@
 \contentsline {section}{\numberline {4.7}Docker e Docker Compose}{16}{section.4.7}%
 \contentsline {chapter}{\numberline {5}Soluzione Proposta}{17}{chapter.5}%
 \contentsline {section}{\numberline {5.1}Architettura del sistema}{17}{section.5.1}%
-\contentsline {section}{\numberline {5.2}Gestione degli utenti e autenticazione}{18}{section.5.2}%
+\contentsline {section}{\numberline {5.2}Gestione degli utenti e autenticazione}{19}{section.5.2}%
 \contentsline {section}{\numberline {5.3}Gestione della flotta e dei viaggi}{19}{section.5.3}%
 \contentsline {subsection}{\numberline {5.3.1}Aggiunta di un veicolo}{19}{subsection.5.3.1}%
-\contentsline {subsection}{\numberline {5.3.2}Lista veicoli}{19}{subsection.5.3.2}%
+\contentsline {subsection}{\numberline {5.3.2}Lista veicoli}{20}{subsection.5.3.2}%
 \contentsline {subsection}{\numberline {5.3.3}Lista viaggi}{20}{subsection.5.3.3}%
 \contentsline {section}{\numberline {5.4}Marketplace: ricerca dei viaggi disponibili e creazione della spedizione}{20}{section.5.4}%
 \contentsline {subsection}{\numberline {5.4.1}Fase 1 --- Ricerca dei veicoli disponibili}{20}{subsection.5.4.1}%
 \contentsline {subsection}{\numberline {5.4.2}Fase 2 --- Ricerca dei viaggi già programmati}{21}{subsection.5.4.2}%
 \contentsline {subsection}{\numberline {5.4.3}Fase 3 --- Validazione geografica dei viaggi già programmati}{21}{subsection.5.4.3}%
 \contentsline {subsection}{\numberline {5.4.4}Fase 4 --- Ricalcolo del percorso con waypoint}{21}{subsection.5.4.4}%
-\contentsline {subsection}{\numberline {5.4.5}Fase 5 --- Pricing con divisore esponenziale}{21}{subsection.5.4.5}%
+\contentsline {subsection}{\numberline {5.4.5}Fase 5 --- Pricing con divisore esponenziale}{22}{subsection.5.4.5}%
 \contentsline {subsection}{\numberline {5.4.6}Selezione e conferma della tratta}{22}{subsection.5.4.6}%
 \contentsline {section}{\numberline {5.5}Generazione dei dati telemetrici}{22}{section.5.5}%
-\contentsline {section}{\numberline {5.6}Pipeline di anomaly detection}{22}{section.5.6}%
+\contentsline {section}{\numberline {5.6}Pipeline di anomaly detection}{23}{section.5.6}%
 \contentsline {subsection}{\numberline {5.6.1}Addestramento del modello}{23}{subsection.5.6.1}%
 \contentsline {subsection}{\numberline {5.6.2}Inferenza in tempo reale}{23}{subsection.5.6.2}%
-\contentsline {subsection}{\numberline {5.6.3}Smoothing con contatori consecutivi}{23}{subsection.5.6.3}%
+\contentsline {subsection}{\numberline {5.6.3}Smoothing con contatori consecutivi}{24}{subsection.5.6.3}%
 \contentsline {section}{\numberline {5.7}Gestione delle notifiche}{24}{section.5.7}%
 \contentsline {section}{\numberline {5.8}Dashboard telemetrica}{24}{section.5.8}%
-\contentsline {chapter}{\numberline {6}Validazione Funzionale}{25}{chapter.6}%
-\contentsline {section}{\numberline {6.1}Ambiente di test}{25}{section.6.1}%
-\contentsline {section}{\numberline {6.2}Scenario di validazione}{25}{section.6.2}%
-\contentsline {subsection}{\numberline {6.2.1}Fase 1 --- Configurazione della flotta (Amministratore)}{26}{subsection.6.2.1}%
-\contentsline {subsection}{\numberline {6.2.2}Fase 2 --- Prima spedizione: creazione della tratta (Cliente A)}{26}{subsection.6.2.2}%
-\contentsline {subsection}{\numberline {6.2.3}Fase 3 --- Seconda spedizione: condivisione della tratta (Cliente B)}{27}{subsection.6.2.3}%
-\contentsline {subsection}{\numberline {6.2.4}Fase 4 --- Visualizzazione dei viaggi programmati e avvio simulazione}{28}{subsection.6.2.4}%
-\contentsline {subsection}{\numberline {6.2.5}Fase 5 --- Rilevazione anomalia e notifica (Tecnico)}{28}{subsection.6.2.5}%
-\contentsline {chapter}{\numberline {7}Conclusioni e Sviluppi Futuri}{33}{chapter.7}%
-\contentsline {section}{\numberline {7.1}Conclusioni}{33}{section.7.1}%
-\contentsline {section}{\numberline {7.2}Sviluppi futuri}{33}{section.7.2}%
-\contentsline {subsection}{\numberline {7.2.1}Ottimizzazione temporale e scheduling attivo}{33}{subsection.7.2.1}%
-\contentsline {subsection}{\numberline {7.2.2}Scalabilità su piattaforme cloud}{34}{subsection.7.2.2}%
-\contentsline {subsection}{\numberline {7.2.3}Miglioramento della sensibilità dell'anomaly detection}{34}{subsection.7.2.3}%
-\contentsline {subsection}{\numberline {7.2.4}Indicizzazione spaziale con PostGIS}{34}{subsection.7.2.4}%
-\contentsline {subsection}{\numberline {7.2.5}Portale cliente per il tracking delle spedizioni}{34}{subsection.7.2.5}%
-\contentsline {subsection}{\numberline {7.2.6}Sistema di notifiche push per il tecnico}{35}{subsection.7.2.6}%
+\contentsline {chapter}{\numberline {6}Validazione Funzionale}{26}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Ambiente di test}{26}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Scenario di validazione}{26}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}Fase 1 --- Configurazione della flotta (Amministratore)}{27}{subsection.6.2.1}%
+\contentsline {subsection}{\numberline {6.2.2}Fase 2 --- Prima spedizione: creazione della tratta (Cliente A)}{27}{subsection.6.2.2}%
+\contentsline {subsection}{\numberline {6.2.3}Fase 3 --- Seconda spedizione: condivisione della tratta (Cliente B)}{28}{subsection.6.2.3}%
+\contentsline {subsection}{\numberline {6.2.4}Fase 4 --- Visualizzazione dei viaggi programmati e avvio simulazione}{29}{subsection.6.2.4}%
+\contentsline {subsection}{\numberline {6.2.5}Fase 5 --- Rilevazione anomalia e notifica (Tecnico)}{29}{subsection.6.2.5}%
+\contentsline {chapter}{\numberline {7}Conclusioni e Sviluppi Futuri}{34}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Conclusioni}{34}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Sviluppi futuri}{34}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Ottimizzazione temporale e scheduling attivo}{34}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Scalabilità su piattaforme cloud}{35}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Miglioramento della sensibilità dell'anomaly detection}{35}{subsection.7.2.3}%
+\contentsline {subsection}{\numberline {7.2.4}Indicizzazione spaziale con PostGIS}{35}{subsection.7.2.4}%
+\contentsline {subsection}{\numberline {7.2.5}Portale cliente per il tracking delle spedizioni}{35}{subsection.7.2.5}%
+\contentsline {subsection}{\numberline {7.2.6}Sistema di notifiche push per il tecnico}{36}{subsection.7.2.6}%

@@ -1,15 +1,15 @@
 [0] Config.pm:307> INFO - This is Biber 2.19
 [3] Config.pm:310> INFO - Logfile is 'Relazione_IoT_Bello_Antonio.blg'
-[264] biber-MSWIN64:340> INFO - === 
-[421] Biber.pm:419> INFO - Reading 'Relazione_IoT_Bello_Antonio.bcf'
-[571] Biber.pm:979> INFO - Found 6 citekeys in bib section 0
-[594] Biber.pm:4419> INFO - Processing section 0
-[630] Biber.pm:4610> INFO - Looking for bibtex file 'bibliografia.bib' for section 0
-[764] bibtex.pm:1713> INFO - LaTeX decoding ...
-[783] bibtex.pm:1519> INFO - Found BibTeX data source 'bibliografia.bib'
-[893] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
-[893] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[894] Biber.pm:4239> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'it-IT'
-[894] Biber.pm:4245> INFO - No sort tailoring available for locale 'it-IT'
-[944] bbl.pm:660> INFO - Writing 'Relazione_IoT_Bello_Antonio.bbl' with encoding 'UTF-8'
-[953] bbl.pm:763> INFO - Output to Relazione_IoT_Bello_Antonio.bbl
+[355] biber-MSWIN64:340> INFO - === 
+[584] Biber.pm:419> INFO - Reading 'Relazione_IoT_Bello_Antonio.bcf'
+[827] Biber.pm:979> INFO - Found 7 citekeys in bib section 0
+[863] Biber.pm:4419> INFO - Processing section 0
+[916] Biber.pm:4610> INFO - Looking for bibtex file 'bibliografia.bib' for section 0
+[1149] bibtex.pm:1713> INFO - LaTeX decoding ...
+[1197] bibtex.pm:1519> INFO - Found BibTeX data source 'bibliografia.bib'
+[1429] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[1429] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
+[1430] Biber.pm:4239> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'it-IT'
+[1430] Biber.pm:4245> INFO - No sort tailoring available for locale 'it-IT'
+[1513] bbl.pm:660> INFO - Writing 'Relazione_IoT_Bello_Antonio.bbl' with encoding 'UTF-8'
+[1530] bbl.pm:763> INFO - Output to Relazione_IoT_Bello_Antonio.bbl
