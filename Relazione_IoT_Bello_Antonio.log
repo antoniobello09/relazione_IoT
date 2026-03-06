@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.1)  6 MAR 2026 19:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.1)  6 MAR 2026 19:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -922,7 +922,7 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.29 ...\numberline {4.4}MongoDB}{15}{section.4.4}
+l.29 ...\numberline {4.4}MongoDB}{14}{section.4.4}
                                                   % [1
 
 {c:/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}]
@@ -970,11 +970,11 @@ Capitolo 4.
 
 ] [14] [15]) (./capitolo5_soluzione_proposta.tex [16]
 Capitolo 5.
-<img/architettura_IoT_C4.png, id=453, 1205.50375pt x 1105.12875pt>
+<img/architettura_IoT_C4.png, id=453, 1205.50375pt x 1106.1325pt>
 File: img/architettura_IoT_C4.png Graphic file (type png)
 <use img/architettura_IoT_C4.png>
 Package pdftex.def Info: img/architettura_IoT_C4.png  used on input line 15.
-(pdftex.def)             Requested size: 390.0pt x 357.52689pt.
+(pdftex.def)             Requested size: 390.0pt x 357.85162pt.
 [17
 
 ] [18 <./img/architettura_IoT_C4.png>] [19]
@@ -1114,9 +1114,6 @@ L3 programming layer <2023-12-11>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
 Package rerunfilecheck Info: File `Relazione_IoT_Bello_Antonio.out' has not cha
 nged.
 (rerunfilecheck)             Checksum: 8B2CA4DD4283945CAE5A57821A921C80;16104.
@@ -1148,7 +1145,7 @@ ype1/public/cm-super/sfbx1200.pfb><c:/texlive/2023/texmf-dist/fonts/type1/publi
 c/cm-super/sfrm0800.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super
 /sfrm1200.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfti0800.
 pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on Relazione_IoT_Bello_Antonio.pdf (38 pages, 1722304 bytes).
+Output written on Relazione_IoT_Bello_Antonio.pdf (38 pages, 1721984 bytes).
 PDF statistics:
  718 PDF objects out of 1000 (max. 8388607)
  609 compressed objects within 7 object streams
