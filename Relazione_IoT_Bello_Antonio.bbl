@@ -108,83 +108,47 @@
       \verb https://www.flockfreight.com
       \endverb
     \endentry
-    \entry{gillespie2023}{article}{}
-      \name{author}{11}{}{%
-        {{hash=9c069eb405600b26addf2c56933d8843}{%
-           family={Gillespie},
-           familyi={G\bibinitperiod},
-           given={James},
-           giveni={J\bibinitperiod}}}%
-        {{hash=1a907e3e134bb20699c2e7e0db92a3a6}{%
-           family={Pacheco\bibnamedelimb da\bibnamedelima Costa},
-           familyi={P\bibinitperiod\bibinitdelim d\bibinitperiod\bibinitdelim C\bibinitperiod},
-           given={Tamíris},
-           giveni={T\bibinitperiod}}}%
-        {{hash=8599d19eadf7853fa70b872792165fdd}{%
-           family={Cama-Moncunill},
-           familyi={C\bibinithyphendelim M\bibinitperiod},
-           given={Xavier},
-           giveni={X\bibinitperiod}}}%
-        {{hash=86ee00feab5517b13356c5bfe17276a1}{%
-           family={Cadden},
-           familyi={C\bibinitperiod},
-           given={Trevor},
-           giveni={T\bibinitperiod}}}%
-        {{hash=864cd7a201829dd0c6b3e31deceb5e36}{%
-           family={Condell},
-           familyi={C\bibinitperiod},
-           given={Joan},
-           giveni={J\bibinitperiod}}}%
-        {{hash=4d9ba790a9c6409c864b32acb28d3836}{%
-           family={Cowderoy},
-           familyi={C\bibinitperiod},
-           given={Tom},
-           giveni={T\bibinitperiod}}}%
-        {{hash=5faea98160ca42cdc3b5932e34438bca}{%
-           family={Ramsey},
-           familyi={R\bibinitperiod},
-           given={Elaine},
-           giveni={E\bibinitperiod}}}%
-        {{hash=47f92f693edce47e1b3c78cbdb04d72a}{%
-           family={Murphy},
+    \entry{malhotra2016}{article}{}
+      \name{author}{4}{}{%
+        {{hash=dcd5dcd4e4f78f96e2f472d3f01ede9c}{%
+           family={Malhotra},
            familyi={M\bibinitperiod},
-           given={Fionnuala},
-           giveni={F\bibinitperiod}}}%
-        {{hash=41c317c75ccbfb1c3dbd54a874b38e05}{%
-           family={Kull},
-           familyi={K\bibinitperiod},
-           given={Marco},
-           giveni={M\bibinitperiod}}}%
-        {{hash=1c5c222bb5d5dffa7d66bf9c112002e1}{%
-           family={Gallagher},
-           familyi={G\bibinitperiod},
-           given={Robert},
-           giveni={R\bibinitperiod}}}%
-        {{hash=aac751dd5bd4b735971401174bb19094}{%
-           family={Raman},
-           familyi={R\bibinitperiod},
-           given={Ramakrishnan},
-           giveni={R\bibinitperiod}}}%
+           given={Pankaj},
+           giveni={P\bibinitperiod}}}%
+        {{hash=dd153a0cfbbb770a226276234db9aa76}{%
+           family={Vig},
+           familyi={V\bibinitperiod},
+           given={Lovekesh},
+           giveni={L\bibinitperiod}}}%
+        {{hash=11ddfe25cf35d38891cff07417fe10cf}{%
+           family={Shroff},
+           familyi={S\bibinitperiod},
+           given={Gautam},
+           giveni={G\bibinitperiod}}}%
+        {{hash=e3552fa0520a6e47f5555c944932844d}{%
+           family={Agarwal},
+           familyi={A\bibinitperiod},
+           given={Puneet},
+           giveni={P\bibinitperiod}}}%
       }
-      \strng{namehash}{41afcecc1d272cad093467cf72c91e51}
-      \strng{fullhash}{b02ee234272e9a53ac62df3c52d6897d}
-      \strng{bibnamehash}{41afcecc1d272cad093467cf72c91e51}
-      \strng{authorbibnamehash}{41afcecc1d272cad093467cf72c91e51}
-      \strng{authornamehash}{41afcecc1d272cad093467cf72c91e51}
-      \strng{authorfullhash}{b02ee234272e9a53ac62df3c52d6897d}
-      \field{sortinit}{G}
-      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \strng{namehash}{188cd65c41d431d5d7edef39504ff5a7}
+      \strng{fullhash}{3ab9a1b07242170a27c892f83383c86c}
+      \strng{bibnamehash}{188cd65c41d431d5d7edef39504ff5a7}
+      \strng{authorbibnamehash}{188cd65c41d431d5d7edef39504ff5a7}
+      \strng{authornamehash}{188cd65c41d431d5d7edef39504ff5a7}
+      \strng{authorfullhash}{3ab9a1b07242170a27c892f83383c86c}
+      \field{sortinit}{M}
+      \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Sustainability}
-      \field{number}{3}
-      \field{title}{Real-Time Anomaly Detection in Cold Chain Transportation Using {IoT} Technology}
-      \field{volume}{15}
-      \field{year}{2023}
-      \field{pages}{2255}
-      \range{pages}{1}
-      \verb{doi}
-      \verb 10.3390/su15032255
+      \field{journaltitle}{arXiv preprint arXiv:1607.00148}
+      \field{title}{LSTM-based Encoder-Decoder for Multi-sensor Anomaly Detection}
+      \field{year}{2016}
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/1607.00148
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/1607.00148
       \endverb
     \endentry
     \entry{quicargo2024}{online}{}
@@ -250,47 +214,60 @@
       \verb https://www.kaggle.com/datasets/samoilovmikhail/simulated-refrigerator-fault-diagnosis-dataset
       \endverb
     \endentry
-    \entry{sgueglia2022}{article}{}
-      \name{author}{4}{}{%
-        {{hash=e11711a6ca2dc8b8c534aabefa25c602}{%
-           family={Sgueglia},
+    \entry{wei2022lstmiaq}{article}{}
+      \name{author}{6}{}{%
+        {{hash=17941296382e222c6c9f7fba75ec26e4}{%
+           family={Wei},
+           familyi={W\bibinitperiod},
+           given={Yuanyuan},
+           giveni={Y\bibinitperiod}}}%
+        {{hash=49e56cde8c42e933f096c67da45962d4}{%
+           family={Jang-Jaccard},
+           familyi={J\bibinithyphendelim J\bibinitperiod},
+           given={Julian},
+           giveni={J\bibinitperiod}}}%
+        {{hash=481b6495d57ddcbc1be6959267e853e5}{%
+           family={Xu},
+           familyi={X\bibinitperiod},
+           given={Wen},
+           giveni={W\bibinitperiod}}}%
+        {{hash=bc72c368e7ec55fe1d83d2062196d44d}{%
+           family={Sabrina},
            familyi={S\bibinitperiod},
-           given={Arnaldo},
-           giveni={A\bibinitperiod}}}%
-        {{hash=b89be29e4416ffc3a252c9444d204223}{%
-           family={Di\bibnamedelima Sorbo},
-           familyi={D\bibinitperiod\bibinitdelim S\bibinitperiod},
-           given={Andrea},
-           giveni={A\bibinitperiod}}}%
-        {{hash=d781ead4711ab58f19e64d5c3caa355c}{%
-           family={Visaggio},
-           familyi={V\bibinitperiod},
-           given={Corrado\bibnamedelima Aaron},
-           giveni={C\bibinitperiod\bibinitdelim A\bibinitperiod}}}%
-        {{hash=138a955c0679f7b6720b4dfafbc72683}{%
-           family={Canfora},
+           given={Fariza},
+           giveni={F\bibinitperiod}}}%
+        {{hash=9a35579142cfffee4672a2f961d4e3e3}{%
+           family={Camtepe},
            familyi={C\bibinitperiod},
-           given={Gerardo},
-           giveni={G\bibinitperiod}}}%
+           given={Seyit},
+           giveni={S\bibinitperiod}}}%
+        {{hash=4b95985dd4da716a96e7675e7ff92d9d}{%
+           family={Boulic},
+           familyi={B\bibinitperiod},
+           given={Mikael},
+           giveni={M\bibinitperiod}}}%
       }
-      \strng{namehash}{2bdb0e4e8d4b8f97b5bc929372c61fad}
-      \strng{fullhash}{9cedb24933d7090ddaee9b43f5fd7300}
-      \strng{bibnamehash}{2bdb0e4e8d4b8f97b5bc929372c61fad}
-      \strng{authorbibnamehash}{2bdb0e4e8d4b8f97b5bc929372c61fad}
-      \strng{authornamehash}{2bdb0e4e8d4b8f97b5bc929372c61fad}
-      \strng{authorfullhash}{9cedb24933d7090ddaee9b43f5fd7300}
-      \field{sortinit}{S}
-      \field{sortinithash}{b164b07b29984b41daf1e85279fbc5ab}
+      \strng{namehash}{33adc60c5680209562ca3c3f40d35bcb}
+      \strng{fullhash}{5f0603ee853b5b846aeeb03b8825887e}
+      \strng{bibnamehash}{33adc60c5680209562ca3c3f40d35bcb}
+      \strng{authorbibnamehash}{33adc60c5680209562ca3c3f40d35bcb}
+      \strng{authornamehash}{33adc60c5680209562ca3c3f40d35bcb}
+      \strng{authorfullhash}{5f0603ee853b5b846aeeb03b8825887e}
+      \field{sortinit}{W}
+      \field{sortinithash}{4315d78024d0cea9b57a0c6f0e35ed0d}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
-      \field{journaltitle}{Future Generation Computer Systems}
-      \field{title}{A systematic literature review of {IoT} time series anomaly detection solutions}
-      \field{volume}{134}
+      \field{journaltitle}{arXiv preprint arXiv:2204.06701}
+      \field{title}{LSTM-Autoencoder based Anomaly Detection for Indoor Air Quality Time Series Data}
       \field{year}{2022}
-      \field{pages}{170\bibrangedash 186}
-      \range{pages}{17}
       \verb{doi}
-      \verb 10.1016/j.future.2022.04.005
+      \verb 10.48550/arXiv.2204.06701
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2204.06701
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2204.06701
       \endverb
     \endentry
   \enddatalist

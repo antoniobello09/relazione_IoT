@@ -1,27 +1,26 @@
 \chapter{Tecnologie Utilizzate}
 \label{ch:tecnologie}
 
-In questo capitolo vengono descritte le principali tecnologie impiegate nella realizzazione di ChillChain, evidenziando per ciascuna gli aspetti specifici che hanno contribuito alla soluzione adottata. 
+In questo capitolo vengono descritte le principali tecnologie impiegate nella realizzazione di ChillChain, evidenziando come ciascuna abbia contribuito alla soluzione complessiva.
 
 \section{Spring Boot}
 
-Spring Boot è il framework Java utilizzato per la realizzazione del backend della piattaforma. La scelta è ricaduta su questo framework per la sua capacità di semplificare la configurazione di applicazioni.
+Spring Boot è il framework Java scelto per lo sviluppo del backend della piattaforma, per la sua capacità di semplificare la configurazione e la gestione di applicazioni complesse.
 
-Nel contesto di ChillChain, Spring Boot è stato impiegato per esporre le API REST che gestiscono l'intero ciclo di vita delle entità di dominio: veicoli, viaggi, spedizioni, notifiche e utenti. Il modulo Spring Security è stato configurato per implementare l'autenticazione basata su token JWT. L'integrazione con MongoDB è stata realizzata tramite Spring Data MongoDB, che consente di definire repository dichiarativi con query derivate dal nome dei metodi e pipeline di aggregazione personalizzate. Un aspetto particolarmente rilevante è l'integrazione con il protocollo MQTT tramite Spring Integration: il backend sottoscrive i topic di telemetria e anomalie pubblicati dai servizi Python, riceve i messaggi attraverso channel adapter dedicati e li instrada a service activator che si occupano della persistenza dei dati e della generazione delle notifiche.
+Nel contesto di ChillChain, Spring Boot gestisce le API REST che coordinano il ciclo di vita delle entità di dominio: veicoli, viaggi, spedizioni, notifiche e utenti. Spring Security implementa l'autenticazione tramite token JWT. L'integrazione con MongoDB avviene tramite Spring Data MongoDB, che consente l'utilizzo di repository dichiarativi e pipeline di aggregazione personalizzate. 
+Un elemento chiave è l’integrazione con il protocollo MQTT tramite Spring Integration: il backend sottoscrive i topic di telemetria e anomalie pubblicati dai servizi Python, riceve i messaggi tramite channel adapter e li instrada ai service activator responsabili della persistenza dei dati e della generazione delle notifiche.
 
 \section{React e TypeScript}
 
-Il frontend della piattaforma è stato realizzato con React, una libreria JavaScript per la costruzione di interfacce utente basate su componenti, in combinazione con TypeScript, un superset tipizzato di JavaScript che aggiunge il controllo statico dei tipi.
+Il frontend di ChillChain è una SPA (Single Page Application), realizzato con React, una libreria JavaScript basata su componenti, combinata con TypeScript, un superset tipizzato di JavaScript che aggiunge controllo statico dei tipi.
 
-L'impiego di React ha permesso di strutturare l'interfaccia come un insieme di componenti riutilizzabili, ciascuno responsabile di una porzione specifica della vista. La gestione dello stato applicativo si basa sugli hook nativi di React (\texttt{useState}, \texttt{useEffect}) e su \texttt{localStorage} per la persistenza delle informazioni di sessione attraverso la navigazione. La visualizzazione dei dati telemetrici in tempo reale è stata realizzata con la libreria Recharts. La visualizzazione cartografica delle tratte si appoggia a React-Leaflet, impiegato per il rendering delle polyline dei percorsi su mappa interattiva. L'intero progetto frontend utilizza Vite come build tool e Tailwind CSS come framework di utility per lo stile, che ha permesso di ottenere un'interfaccia coerente e responsive.
+React ha permesso di strutturare l'interfaccia come un insieme di componenti riutilizzabili, ciascuno responsabile di una porzione specifica della vista. La gestione dello stato applicativo si affida agli hook nativi (\texttt{useState}, \texttt{useEffect}) e a \texttt{localStorage} per la persistenza delle informazioni di sessione. La visualizzazione dei dati telemetrici in tempo reale utilizza la libreria Recharts, mentre le tratte dei veicoli vengono mostrate su mappa interattiva tramite React-Leaflet. Il progetto frontend è costruito con Vite e stilizzato con Tailwind CSS, garantendo un’interfaccia coerente e responsive.
 
 \section{MQTT e Mosquitto}
 
-MQTT (\textit{Message Queuing Telemetry Transport}) è il protocollo di comunicazione adottato per lo scambio di dati telemetrici tra i servizi della piattaforma. 
-Si tratta di un protocollo di messaggistica leggero basato sul pattern \textit{publish/subscribe}.
+MQTT (\textit{Message Queuing Telemetry Transport}) è il protocollo leggero basato sul pattern \textit{publish/subscribe} adottato per lo scambio dei dati telemetrici tra i servizi della piattaforma.
 
-In ChillChain, MQTT costituisce il tessuto connettivo tra tre attori: il servizio di streaming (publisher), il servizio di anomaly detection (subscriber e publisher) e il backend Spring Boot (subscriber). Il broker Mosquitto gestisce l'instradamento dei messaggi attraverso una struttura gerarchica di topic. Questa architettura disaccoppia completamente i produttori dai consumatori dei dati. La riconnessione automatica, configurata sia lato Python (tramite la libreria Paho MQTT) sia lato Spring Boot (tramite le opzioni del client factory), garantisce la resilienza della comunicazione in caso di interruzioni temporanee del broker.
-
+In ChillChain, MQTT connette tre attori principali: il servizio di streaming dei dati (publisher), il servizio di anomaly detection (subscriber e publisher) e il backend Spring Boot (subscriber). Il broker Mosquitto gestisce l'instradamento dei messaggi tramite topic.
 \section{MongoDB}
 
 MongoDB è il database NoSQL orientato ai documenti impiegato per la persistenza di tutti i dati della piattaforma.
@@ -30,7 +29,7 @@ Nel contesto di ChillChain, la flessibilità di MongoDB si è rivelata particola
 
 \section{Python, FastAPI e PyTorch}
 
-Python è il linguaggio utilizzato per i due microservizi dedicati rispettivamente allo streaming dei dati telemetrici e alla rilevazione delle anomalie. La scelta è motivata dalla ricchezza dell'ecosistema Python per il \textit{data processing} e il \textit{machine learning}, che ha consentito di implementare entrambi i servizi con un numero ridotto di dipendenze.
+Python è il linguaggio utilizzato per i due microservizi dedicati rispettivamente allo streaming dei dati telemetrici e alla rilevazione delle anomalie. La scelta è motivata dalla ricchezza dell'ecosistema Python per il \textit{data processing} e il \textit{machine learning}.
 
 Il servizio di streaming (\texttt{streamer\_main.py}) è un'applicazione FastAPI che legge i file CSV contenenti i dati simulati di telemetria e li pubblica sul broker MQTT con una cadenza configurabile, simulando il comportamento di sensori reali installati a bordo dei veicoli. I dataset sono generati da uno script di simulazione termodinamica (\texttt{stream\_fridge\_dataset\_generator.py}), derivato dal dataset Kaggle \textit{Simulated Refrigerator Fault Diagnosis} \cite{kaggle_fridge}, che modella il comportamento fisico di un impianto frigorifero.
 
@@ -44,7 +43,6 @@ Sul lato frontend, il componente di inserimento spedizione integra la \textit{Pl
 
 Sul lato backend vengono utilizzate due API aggiuntive: la \textit{Geocoding API}, che converte gli indirizzi testuali in coordinate geografiche (latitudine e longitudine) nei casi in cui le coordinate non siano già disponibili dal frontend, e la \textit{Routes API}, che calcola il percorso ottimale tra due o più punti restituendo la distanza in metri, la durata stimata e la polyline codificata del tracciato.
 
-Nel flusso operativo di ChillChain, queste API vengono invocate in due momenti: alla creazione di una nuova tratta da parte dell'amministratore, per calcolare il percorso base tra partenza e arrivo, e all'inserimento di una nuova spedizione in un viaggio già esistente, per ricalcolare il percorso con i waypoint intermedi corrispondenti ai punti di ritiro e consegna del nuovo pacco.
 \section{Docker e Docker Compose}
 
 Docker è la piattaforma di containerizzazione impiegata per isolare ciascun componente dell'architettura in un ambiente di esecuzione autonomo e riproducibile. Ogni servizio della piattaforma viene eseguito all'interno di un container dedicato, con le proprie dipendenze e la propria configurazione.

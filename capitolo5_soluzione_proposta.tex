@@ -22,7 +22,7 @@ Il sistema è composto da sei servizi containerizzati, orchestrati tramite Docke
 
 Il \textbf{backend Spring Boot} (porta 8081) rappresenta il nucleo applicativo: espone le API REST per la gestione di veicoli, viaggi, spedizioni, utenti e notifiche, implementa l'autenticazione JWT e la logica di autorizzazione basata sui ruoli, sottoscrive i topic MQTT per ricevere telemetria e risultati dell'anomaly detection, e persiste tutti i dati su MongoDB.
 
-Il \textbf{frontend React} (porta 5173) fornisce l'interfaccia utente, differenziata per ruolo: l'amministratore gestisce la flotta e i viaggi, il cliente cerca e prenota spedizioni, il tecnico monitora i veicoli e riceve le notifiche di anomalia.
+Il \textbf{frontend React} (porta 5173) fornisce l'interfaccia utente, differenziata per ruolo.
 
 Il \textbf{broker MQTT Mosquitto} (porta 1883) gestisce la comunicazione asincrona tra i servizi Python e il backend, instradando i messaggi attraverso topic.
 
@@ -70,12 +70,11 @@ Per ogni viaggio è inoltre disponibile un'anteprima cartografica: un popup most
 \section{Marketplace: ricerca dei viaggi disponibili e creazione della spedizione}
 \label{sec:marketplace}
 
-Il cuore commerciale della piattaforma è il meccanismo che consente ai clienti di creare spedizioni.
+Il cuore della piattaforma è il meccanismo che consente ai clienti di creare spedizioni.
 
-\subsection{Fase 1 --- Ricerca dei veicoli disponibili}
+\subsection{Fase 1 --- Ricerca dei veicoli disponibili per un nuovo viaggio}
 
-Quando un cliente inserisce i dati della propria spedizione (indirizzo di partenza e arrivo, dimensioni, peso, necessità di refrigerazione e data di arrivo desiderata), il backend esegue una prima query per individuare i veicoli della flotta che soddisfano i requisiti e che non hanno ancora alcuna viaggio assegnato. Questa query è implementata come aggregation pipeline su MongoDB: il primo stadio filtra i veicoli per peso massimo, volume disponibile e tipologia di refrigerazione; 
-il secondo esegue un \texttt{\$lookup} sulla collezione \texttt{trip}; il terzo seleziona solo i veicoli il cui array di viaggi (trip) risulta vuoto. Per ciascun veicolo disponibile, il sistema invoca la Routes API di Google Maps per calcolare il percorso tra la partenza e l'arrivo indicati dal cliente, ottenendo distanza, durata e polyline codificata. Il prezzo viene calcolato come $\text{prezzo} = \text{distanceKm} \times \text{pricePerKm}$, dove \texttt{pricePerKm} è il costo chilometrico associato al veicolo.
+Quando un cliente inserisce i dati della propria spedizione (indirizzo di partenza e arrivo, dimensioni, peso, necessità di refrigerazione e data di arrivo desiderata), il backend esegue una prima query per individuare i veicoli della flotta che soddisfano i requisiti e che non hanno ancora alcun viaggio assegnato. Questa query è implementata come aggregation pipeline su MongoDB in tre stadi: il primo filtra i veicoli verificando che ciascuna dimensione del vano (larghezza, altezza, lunghezza) sia sufficiente a contenere il pacco e che il peso massimo e la tipologia di refrigerazione siano compatibili; il secondo esegue un \texttt{\$lookup} sulla collezione \texttt{trip}; il terzo seleziona solo i veicoli il cui array di viaggi risulta vuoto. Il sistema invoca quindi la Routes API di Google Maps per calcolare il percorso tra la partenza e l'arrivo indicati dal cliente, ottenendo distanza, durata e polyline codificata. Questo percorso viene associato a ciascun veicolo disponibile, il cui prezzo è determinato come $\text{prezzo} = \text{distanceKm} \times \text{pricePerKm}$.
 
 \subsection{Fase 2 --- Ricerca dei viaggi già programmati}
 

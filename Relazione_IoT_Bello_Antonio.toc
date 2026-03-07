@@ -19,15 +19,14 @@
 \contentsline {section}{\numberline {3.1}Flock Freight -- FlockDirect\textsuperscript {\textregistered } Shared Truckload}{9}{section.3.1}%
 \contentsline {section}{\numberline {3.2}Quicargo -- Piattaforma collaborativa con pricing dinamico}{10}{section.3.2}%
 \contentsline {section}{\numberline {3.3}Carrier Lynx Fleet -- Piattaforma digitale per il monitoraggio della catena del freddo}{10}{section.3.3}%
-\contentsline {section}{\numberline {3.4}Gillespie et al. -- Rilevazione anomalie IoT nel trasporto refrigerato}{11}{section.3.4}%
-\contentsline {section}{\numberline {3.5}Sgueglia et al. -- Systematic literature review su anomaly detection IoT}{11}{section.3.5}%
-\contentsline {section}{\numberline {3.6}Sintesi e posizionamento della soluzione proposta}{12}{section.3.6}%
+\contentsline {section}{\numberline {3.4}Rilevazione anomalie su serie temporali IoT}{11}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Sintesi e posizionamento della soluzione proposta}{11}{section.3.5}%
 \contentsline {chapter}{\numberline {4}Tecnologie Utilizzate}{13}{chapter.4}%
 \contentsline {section}{\numberline {4.1}Spring Boot}{13}{section.4.1}%
 \contentsline {section}{\numberline {4.2}React e TypeScript}{13}{section.4.2}%
 \contentsline {section}{\numberline {4.3}MQTT e Mosquitto}{14}{section.4.3}%
 \contentsline {section}{\numberline {4.4}MongoDB}{14}{section.4.4}%
-\contentsline {section}{\numberline {4.5}Python, FastAPI e PyTorch}{15}{section.4.5}%
+\contentsline {section}{\numberline {4.5}Python, FastAPI e PyTorch}{14}{section.4.5}%
 \contentsline {section}{\numberline {4.6}Google Maps Platform}{15}{section.4.6}%
 \contentsline {section}{\numberline {4.7}Docker e Docker Compose}{16}{section.4.7}%
 \contentsline {chapter}{\numberline {5}Soluzione Proposta}{17}{chapter.5}%
@@ -38,7 +37,7 @@
 \contentsline {subsection}{\numberline {5.3.2}Lista veicoli}{20}{subsection.5.3.2}%
 \contentsline {subsection}{\numberline {5.3.3}Lista viaggi}{20}{subsection.5.3.3}%
 \contentsline {section}{\numberline {5.4}Marketplace: ricerca dei viaggi disponibili e creazione della spedizione}{20}{section.5.4}%
-\contentsline {subsection}{\numberline {5.4.1}Fase 1 --- Ricerca dei veicoli disponibili}{20}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.1}Fase 1 --- Ricerca dei veicoli disponibili per un nuovo viaggio}{20}{subsection.5.4.1}%
 \contentsline {subsection}{\numberline {5.4.2}Fase 2 --- Ricerca dei viaggi già programmati}{21}{subsection.5.4.2}%
 \contentsline {subsection}{\numberline {5.4.3}Fase 3 --- Validazione geografica dei viaggi già programmati}{21}{subsection.5.4.3}%
 \contentsline {subsection}{\numberline {5.4.4}Fase 4 --- Ricalcolo del percorso con waypoint}{21}{subsection.5.4.4}%
