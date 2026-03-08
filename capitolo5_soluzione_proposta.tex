@@ -104,7 +104,7 @@ Dove $\text{distanceKm}_{\text{shipment}}$ è la distanza del tratto specifico d
 \subsection{Selezione e conferma della tratta}
 
 Il cliente visualizza tutte le opzioni --- viaggi nuovi e viaggi già esistenti. 
-Al momento della selezione, il backend esegue l'operazione seguente: se il viaggio è nuovo (veicolo senza trip assegnato), viene creata una nuova entità \texttt{Trip}; 
+Dopo la selezione del viaggio, il backend esegue l'operazione seguente: se il viaggio è nuovo (veicolo senza trip assegnato), viene creata una nuova entità \texttt{Trip}; 
 se il viaggio è già esistente, viene aggiornata l'entità \texttt{Trip} esistente con il nuovo percorso (inclusivo dei waypoint) e la capacità residua aggiornata. In entrambi i casi, viene creata un'entità \texttt{Shipment} associato al viaggio.
 
 

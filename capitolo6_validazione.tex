@@ -10,7 +10,7 @@ In questo capitolo viene descritta la validazione funzionale della piattaforma C
 
 La validazione è stata condotta su una macchina locale con l'intero sistema eseguito in container Docker. Il frontend è raggiungibile all'indirizzo \texttt{http://localhost:5173}.
 
-Per la simulazione della telemetria sono stati predisposti dataset CSV generati dallo script di simulazione termodinamica descritto nella Sezione~\ref{sec:generazione_dati}: un dataset in condizioni di funzionamento normale per 120 minuti e un dataset con iniezione del guasto \texttt{UNDERCHARGE\_AND\_COND\_FOUL} (sottocaricamento del refrigerante combinato a fouling del condensatore) a partire dal minuto 60. Entrambi i dataset sono composti da 120 righe con campionamento al minuto.
+Per la simulazione della telemetria è stato predisposto un dataset CSV generato dallo script di simulazione termodinamica descritto nella Sezione~\ref{sec:generazione_dati}. Il dataset è composto da 120 righe con campionamento al minuto con iniezione del guasto \texttt{UNDERCHARGE\_AND\_COND\_FOUL} (sottocaricamento del refrigerante combinato a fouling del condensatore) a partire dal minuto 60. 
 
 
 % ============================================================================
@@ -63,9 +63,9 @@ Un primo cliente va alla sezione \emph{Send Parcel} (Figura~\ref{fig:val_send_pa
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.95\textwidth]{img/val_send_parcel.png}
+\includegraphics[width=0.95\textwidth]{img/val_send_parcel_form.png}
 %\fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}\textit{Screenshot: form di invio spedizione}\vspace{3cm}}}
-\caption{Form di ricerca tratte. Il cliente inserisce gli indirizzi di partenza e arrivo, le dimensioni e il peso del pacco, la necessità di refrigerazione e la data di arrivo desiderata.}
+\caption{Form di ricerca tratte. Il cliente inserisce gli indirizzi di partenza e arrivo, le dimensioni e il peso del pacco, la necessità di refrigerazione e la data di arrivo massima tollerata.}
 \label{fig:val_send_parcel}
 \end{figure}
 
@@ -96,7 +96,7 @@ Un secondo cliente effettua una ricerca per una spedizione da Modena a Firenze, 
 \label{fig:val_trip_list_shared}
 \end{figure}
 
-Il sistema mostra due opzioni (Figura~\ref{fig:val_trip_list_shared}): \texttt{camion1} per un viaggio nuovo (Modena--Firenze a 142,03~\euro{}), \texttt{camion1} per un viaggio condiviso (il percorso ricalcolato Milano--Modena--Firenze--Roma rientra nella tolleranza di 1 ora, il è prezzo scontato grazie al divisore $2^1$). Il Cliente B seleziona il viaggio in condivisione. Il backend aggiorna la polyline del trip con i nuovi waypoint (Modena e Firenze come tappe intermedie), decrementa ulteriormente la capacità residua e salva il nuovo \texttt{Shipment}.
+Il sistema mostra due opzioni (Figura~\ref{fig:val_trip_list_shared}): \texttt{camion1} per un viaggio nuovo (Modena--Firenze a 142,03~\euro{}), \texttt{camion3} per un viaggio condiviso (il percorso ricalcolato Milano--Modena--Firenze--Roma rientra nella tolleranza di 1 ora, il prezzo è scontato grazie al divisore $2^1$). Il Cliente B seleziona il viaggio in condivisione. Il backend aggiorna la polyline del trip con i nuovi waypoint (Modena e Firenze come tappe intermedie), decrementa ulteriormente la capacità residua e salva il nuovo \texttt{Shipment}.
 
 
 % ----------------------------------------------------------------------------
@@ -130,7 +130,7 @@ L'amministratore può vedere l'elenco dei viaggi programmati dalla sezione \emph
     \caption{Dettaglio del viaggio con elenco degli shipment associati.}
 \end{subfigure}
 
-\caption{Descrizione generale della figura}
+\caption{Interfaccia di gestione dei viaggi programmati: lista dei viaggi disponibili, visualizzazione del percorso su mappa e dettaglio del viaggio selezionato con gli shipment associati.}
 \label{fig:trip_details}
 \end{figure}
 
@@ -141,7 +141,7 @@ Da postman è possibile usare un endpoint del backend per avviare la simulazione
 \subsection{Fase 5 --- Rilevazione anomalia e notifica (Tecnico)}
 \label{subsec:fase5}
 
-Il tecnico accede alla piattaforma con le proprie credenziali e viene indirizzato all'elenco dei veicoli dotati di refrigerazione (Figura~\ref{fig:val_tech_vehicle_list}). 
+Il tecnico accede alla piattaforma con le proprie credenziali e viene indirizzato alla sezione \emph{Monitor} dove si trova l'elenco dei veicoli dotati di refrigerazione (Figura~\ref{fig:val_tech_vehicle_list}). 
 
 \begin{figure}[ht]
 \centering
@@ -164,7 +164,7 @@ Il tecnico seleziona la notifica e accede al pannello notifiche (Figura~\ref{fig
 \caption{Pannello notifiche del tecnico. La notifica indica il veicolo interessato (\texttt{camion3}), il timestamp dell'allerta e il messaggio. Il badge nell'header mostra il conteggio delle notifiche non lette.}
 \label{fig:val_notification}
 \end{figure}
-Dall'elenco dei veicoli il tecnico seleziona \texttt{camion3} e accede alla dashboard telemetrica (Figura~\ref{fig:val_telemetry_anomaly}), dove può visualizzare i grafici storici dei parametri monitorati.
+Dall'elenco dei veicoli della sezione \emph{Monitor} il tecnico seleziona \texttt{camion3} e accede alla dashboard telemetrica (Figura~\ref{fig:val_telemetry_anomaly}), dove può visualizzare i grafici storici dei parametri monitorati.
 
 
 \begin{figure}[ht]

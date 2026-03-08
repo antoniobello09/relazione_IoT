@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.1)  7 MAR 2026 22:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.1)  8 MAR 2026 21:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1020,17 +1020,17 @@ File: img/val_vehicle_list.png Graphic file (type png)
 <use img/val_vehicle_list.png>
 Package pdftex.def Info: img/val_vehicle_list.png  used on input line 51.
 (pdftex.def)             Requested size: 370.49881pt x 157.51189pt.
-<img/val_send_parcel.png, id=511, 1341.01pt x 934.49126pt>
-File: img/val_send_parcel.png Graphic file (type png)
-<use img/val_send_parcel.png>
-Package pdftex.def Info: img/val_send_parcel.png  used on input line 66.
-(pdftex.def)             Requested size: 370.49881pt x 258.17653pt.
+<img/val_send_parcel_form.png, id=511, 1155.1155pt x 519.74174pt>
+File: img/val_send_parcel_form.png Graphic file (type png)
+<use img/val_send_parcel_form.png>
+Package pdftex.def Info: img/val_send_parcel_form.png  used on input line 66.
+(pdftex.def)             Requested size: 370.49881pt x 166.70142pt.
  [27 <./img/val_login_admin.png>]
-<img/val_trip_list_first.png, id=523, 1153.911pt x 518.53725pt>
+<img/val_trip_list_first.png, id=523, 1341.01pt x 934.49126pt>
 File: img/val_trip_list_first.png Graphic file (type png)
 <use img/val_trip_list_first.png>
 Package pdftex.def Info: img/val_trip_list_first.png  used on input line 76.
-(pdftex.def)             Requested size: 370.49881pt x 166.48917pt.
+(pdftex.def)             Requested size: 370.49881pt x 258.17653pt.
 <img/val_trip_list_shared.png, id=524, 1155.1155pt x 514.92375pt>
 File: img/val_trip_list_shared.png Graphic file (type png)
 <use img/val_trip_list_shared.png>
@@ -1077,11 +1077,11 @@ File: img/val_telemetry_anomaly.png Graphic file (type png)
 Package pdftex.def Info: img/val_telemetry_anomaly.png  used on input line 172.
 
 (pdftex.def)             Requested size: 370.49881pt x 165.80232pt.
-) (./capitolo7_conclusioni.tex [30 <./img/val_send_parcel.png>] [31 <./img/val_
-trip_list_first.png> <./img/val_trip_list_shared.png>] [32 <./img/val_trip_list
-_complete.png> <./img/val_map.png> <./img/val_trip_detail.png> <./img/val_tech_
-vehicle_list.png>] [33 <./img/val_notification.png> <./img/val_telemetry_anomal
-y.png>]
+) (./capitolo7_conclusioni.tex [30 <./img/val_send_parcel_form.png>] [31 <./img
+/val_trip_list_first.png> <./img/val_trip_list_shared.png>] [32 <./img/val_trip
+_list_complete.png> <./img/val_map.png> <./img/val_trip_detail.png> <./img/val_
+tech_vehicle_list.png>] [33 <./img/val_notification.png> <./img/val_telemetry_a
+nomaly.png>]
 Capitolo 7.
 [34
 
@@ -1129,10 +1129,10 @@ Package logreq Info: Writing requests to 'Relazione_IoT_Bello_Antonio.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 24364 strings out of 474175
- 420754 string characters out of 5749699
+ 24363 strings out of 474175
+ 420745 string characters out of 5749699
  1940460 words of memory out of 5000000
- 46221 multiletter control sequences out of 15000+600000
+ 46220 multiletter control sequences out of 15000+600000
  571322 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  75i,8n,81p,1339b,1621s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1151,7 +1151,7 @@ ype1/public/cm-super/sfbx1200.pfb><c:/texlive/2023/texmf-dist/fonts/type1/publi
 c/cm-super/sfrm0800.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super
 /sfrm1200.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfti0800.
 pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on Relazione_IoT_Bello_Antonio.pdf (38 pages, 1723631 bytes).
+Output written on Relazione_IoT_Bello_Antonio.pdf (38 pages, 1715937 bytes).
 PDF statistics:
  716 PDF objects out of 1000 (max. 8388607)
  607 compressed objects within 7 object streams

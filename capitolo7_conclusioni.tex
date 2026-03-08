@@ -22,7 +22,7 @@ Per un utilizzo in produzione sarebbe necessario il deployment su piattaforme cl
 
 Il modello LSTM autoencoder attuale opera sulle 15~feature grezze del dataset di telemetria refrigerata. Anomalie sottili come il \emph{sensor drift}, in cui un sensore si degrada progressivamente nel tempo senza generare un errore di ricostruzione elevato su singole osservazioni, risultano difficili da rilevare con questo approccio.
 
-Un miglioramento consiste nell'estrazione di feature derivate da fornire in input al modello come il rapporto tra feature correlate.
+Un miglioramento consiste nell'estrazione di feature derivate da fornire in input al modello.
 
 \subsection{Indicizzazione spaziale con PostGIS}
 
@@ -33,7 +33,7 @@ L'adozione di PostgreSQL con l'estensione PostGIS consentirebbe di sfruttare l'i
 
 \subsection{Portale cliente per il tracking delle spedizioni}
 
-Attualmente il ruolo \texttt{CLIENT} è limitato alla fase di ricerca e prenotazione. Una volta confermata la spedizione, il cliente non dispone di strumenti per monitorarne lo stato. Un'evoluzione prevede la creazione di un'area riservata in cui il cliente possa visualizzare lo stato della spedizione in tempo reale, con stima dell'orario di arrivo (ETA) calcolata sulla base della posizione corrente del veicolo e della rotta pianificata, e notifiche automatiche all'approssimarsi del ritiro o della consegna.
+Attualmente il ruolo \texttt{CLIENT} è limitato alla fase di ricerca e prenotazione. Una volta confermata la spedizione, il cliente non dispone di strumenti per monitorarne lo stato. Un'evoluzione prevede la creazione di un'area riservata in cui il cliente possa visualizzare lo stato della spedizione in tempo reale, con stima dell'orario di arrivo calcolata sulla base della posizione corrente del veicolo e della rotta pianificata, e notifiche automatiche all'approssimarsi del ritiro o della consegna.
 
 \subsection{Sistema di notifiche push per il tecnico}
 
