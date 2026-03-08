@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.1)  8 MAR 2026 21:56
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2024.1.1)  8 MAR 2026 22:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1120,6 +1120,9 @@ L3 programming layer <2023-12-11>
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `Relazione_IoT_Bello_Antonio.out' has not cha
 nged.
 (rerunfilecheck)             Checksum: 2FBD96948B441C7E87E7873EDCF136C9;15633.
@@ -1151,7 +1154,7 @@ ype1/public/cm-super/sfbx1200.pfb><c:/texlive/2023/texmf-dist/fonts/type1/publi
 c/cm-super/sfrm0800.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super
 /sfrm1200.pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sfti0800.
 pfb><c:/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on Relazione_IoT_Bello_Antonio.pdf (38 pages, 1715937 bytes).
+Output written on Relazione_IoT_Bello_Antonio.pdf (38 pages, 1715847 bytes).
 PDF statistics:
  716 PDF objects out of 1000 (max. 8388607)
  607 compressed objects within 7 object streams
