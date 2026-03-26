@@ -10,34 +10,44 @@ In questo capitolo viene descritta la validazione funzionale della piattaforma C
 
 La validazione è stata condotta su una macchina locale con l'intero sistema eseguito in container Docker. Il frontend è raggiungibile all'indirizzo \texttt{http://localhost:5173}.
 
-Per la simulazione della telemetria è stato predisposto un dataset CSV generato dallo script di simulazione termodinamica descritto nella Sezione~\ref{sec:generazione_dati}. Il dataset è composto da 120 righe con campionamento al minuto con iniezione del guasto \texttt{UNDERCHARGE\_AND\_COND\_FOUL} (sottocaricamento del refrigerante combinato a fouling del condensatore) a partire dal minuto 60. 
+Per la simulazione della telemetria è stato predisposto un dataset CSV generato da un script derivato dal codice di simulazione termodinamica descritto nella Sezione~\ref{sec:generazione_dati}. Il dataset è composto da 1440 righe con campionamento al minuto con iniezione del guasto \texttt{UNDERCHARGE\_AND\_COND\_FOUL} (sottocaricamento del refrigerante combinato a fouling del condensatore) a partire dal minuto 900. 
 
 
 % ============================================================================
 \section{Scenario di validazione}
 \label{sec:scenario}
 
-Lo scenario è strutturato in cinque fasi che coprono l'intero ciclo di vita di una spedizione, dalla configurazione della flotta fino alla rilevazione di un'anomalia in corso di viaggio.
+Lo scenario è strutturato in sette fasi che coprono l'intero ciclo di vita di una spedizione, dalla configurazione della flotta fino alla rilevazione di un'anomalia in corso di viaggio e alla consultazione dei report.
 
 
 % ----------------------------------------------------------------------------
-\subsection{Fase 1 --- Configurazione della flotta (Amministratore)}
+\subsection{Fase 1 --- Configurazione della flotta e creazione del tecnico (Amministratore)}
 \label{subsec:fase1}
 
-L'amministratore accede alla piattaforma con le proprie credenziali tramite il login form mostrato in Figura~\ref{fig:val_login}. Procede, poi, dalla sezione \emph{Add Vehicle} alla registrazione di tre veicoli dalla schermata di registrazione veicoli (Figura~\ref{fig:val_add_vehicle}).
+L'amministratore accede alla piattaforma con le proprie credenziali tramite il login form mostrato in Figura~\ref{fig:val_login}. 
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.95\textwidth]{img/val_login_admin.png}
-%\fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}\textit{Screenshot: schermata di login}\vspace{3cm}}}
 \caption{Schermata di login della piattaforma. L'utente inserisce email e password; il sistema restituisce un token JWT e fa accedere all'interfaccia corrispondente al ruolo.}
 \label{fig:val_login}
 \end{figure}
 
+Come primo passo, l'amministratore accede alla sezione \emph{Add Technician} (Figura~\ref{fig:val_add_technician}) per creare l'account del tecnico che si occuperà del monitoraggio della flotta. Il form richiede email e password; il ruolo \texttt{TECHNICIAN} viene assegnato automaticamente dal sistema.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\textwidth]{img/val_add_technician.png}
+%\fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}\textit{Screenshot: form di creazione tecnico}\vspace{3cm}}}
+\caption{Form di creazione di un nuovo tecnico. L'amministratore inserisce email e password; il ruolo \texttt{TECHNICIAN} viene assegnato automaticamente dal sistema.}
+\label{fig:val_add_technician}
+\end{figure}
+
+Procede, poi, dalla sezione \emph{Add Vehicle} alla registrazione di tre veicoli dalla schermata di registrazione veicoli (Figura~\ref{fig:val_add_vehicle}).
+
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.95\textwidth]{img/val_add_vehicle.png}
-%\fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}\textit{Screenshot: form di aggiunta veicolo}\vspace{3cm}}}
 \caption{Form di registrazione di un nuovo veicolo. L'amministratore specifica il nome identificativo, le dimensioni del vano di carico (lunghezza, larghezza, altezza in m), il peso massimo trasportabile (kg), se è disponibile la refrigerazione e il costo per chilometro (\euro/km).}
 \label{fig:val_add_vehicle}
 \end{figure}
@@ -49,22 +59,32 @@ Nella sezione \emph{Vehicles} (Figura~\ref{fig:val_vehicle_list}) è possibile v
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.95\textwidth]{img/val_vehicle_list.png}
-%\fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}\textit{Screenshot: lista veicoli della flotta}\vspace{3cm}}}
 \caption{Lista dei veicoli registrati nella flotta. Per ciascun veicolo sono visualizzati il nome, le dimensioni, il peso massimo, se è refrigerato e il prezzo per chilometro.}
 \label{fig:val_vehicle_list}
 \end{figure}
 
 
 % ----------------------------------------------------------------------------
-\subsection{Fase 2 --- Prima spedizione: creazione della tratta (Cliente A)}
+\subsection{Fase 2 --- Registrazione e prima spedizione (Cliente A)}
 \label{subsec:fase2}
 
-Un primo cliente va alla sezione \emph{Send Parcel} (Figura~\ref{fig:val_send_parcel}) e inserisce i dati della propria spedizione: partenza da Milano, arrivo a Roma, pacco di 50\,$\times$\,50\,$\times$\,50~cm con peso di 100~kg, refrigerazione necessaria e data di arrivo entro il 20 marzo 2026.
+Il Cliente A accede alla piattaforma come utente non autenticato e seleziona \emph{Register} dalla barra di navigazione (Figura~\ref{fig:val_register}). Compila il form di registrazione con email e password; il backend assegna automaticamente il ruolo \texttt{CLIENT} e salva l'account. 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\textwidth]{img/val_register.png}
+%\fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}\textit{Screenshot: form di registrazione cliente}\vspace{3cm}}}
+\caption{Form di registrazione del cliente. L'utente inserisce email e password; il ruolo \texttt{CLIENT} viene assegnato automaticamente dal backend.}
+\label{fig:val_register}
+\end{figure}
+
+Dopo la registrazione, il Cliente A effettua il login e viene indirizzato all'interfaccia dedicata al ruolo cliente.
+
+Dalla sezione \emph{Send Parcel} (Figura~\ref{fig:val_send_parcel}) inserisce i dati della propria spedizione: partenza da Milano, arrivo a Roma, pacco di 50\,$\times$\,50\,$\times$\,50~cm con peso di 100~kg, refrigerazione necessaria e data di arrivo entro il 31 marzo 2026.
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.95\textwidth]{img/val_send_parcel_form.png}
-%\fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}\textit{Screenshot: form di invio spedizione}\vspace{3cm}}}
 \caption{Form di ricerca tratte. Il cliente inserisce gli indirizzi di partenza e arrivo, le dimensioni e il peso del pacco, la necessità di refrigerazione e la data di arrivo massima tollerata.}
 \label{fig:val_send_parcel}
 \end{figure}
@@ -74,7 +94,6 @@ Il sistema restituisce la lista delle tratte disponibili (Figura~\ref{fig:val_tr
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.95\textwidth]{img/val_trip_list_first.png}
-%\fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}\textit{Screenshot: lista tratte disponibili}\vspace{3cm}}}
 \caption{Risultati della ricerca tratte per il Cliente A. Sono visibili due veicoli disponibili con il percorso Milano--Roma, prezzo calcolato, distanza e durata stimata.}
 \label{fig:val_trip_list_first}
 \end{figure}
@@ -86,12 +105,11 @@ Il Cliente A seleziona \texttt{camion3}. Il backend crea una nuova entità \text
 \subsection{Fase 3 --- Seconda spedizione: condivisione della tratta (Cliente B)}
 \label{subsec:fase3}
 
-Un secondo cliente effettua una ricerca per una spedizione da Modena a Firenze, con un pacco più piccolo (30\,$\times$\,30\,$\times$\,30~cm, 20~kg, refrigerato, arrivo massimo il 22 marzo 2026).
+Un secondo cliente, dopo essersi registrato e autenticato con le stesse modalità del Cliente A, effettua una ricerca per una spedizione da Modena a Firenze, con un pacco più piccolo (30\,$\times$\,30\,$\times$\,30~cm, 20~kg, refrigerato, arrivo massimo il  6 aprile 2026).
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.95\textwidth]{img/val_trip_list_shared.png}
-%\fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}\textit{Screenshot: lista tratte con opzione condivisa}\vspace{3cm}}}
 \caption{Risultati della ricerca tratte per il Cliente B. Oltre al veicolo \texttt{camion1} disponibile per un viaggio nuovo, compare \texttt{camion3} per un viaggio condiviso: il percorso Milano--Roma passa sufficientemente vicino a Modena e Firenze, la deviazione rientra nell'ora di tolleranza e il prezzo è scontato del 50\%}
 \label{fig:val_trip_list_shared}
 \end{figure}
@@ -100,8 +118,23 @@ Il sistema mostra due opzioni (Figura~\ref{fig:val_trip_list_shared}): \texttt{c
 
 
 % ----------------------------------------------------------------------------
-\subsection{Fase 4 --- Visualizzazione dei viaggi programmati e avvio simulazione}
+\subsection{Fase 4 --- Consultazione delle spedizioni (Clienti A e B)}
 \label{subsec:fase4}
+
+Dopo aver completato la prenotazione, ciascun cliente può accedere alla sezione \emph{My Shipments} (Figura~\ref{fig:val_my_shipments}) per verificare le proprie spedizioni. La pagina elenca le spedizioni associate all'account autenticato, con i dettagli di indirizzi di partenza e arrivo, dimensioni e peso del pacco, veicolo assegnato e prezzo. L'identificativo del cliente viene estratto dal token JWT lato server, garantendo che ciascun utente visualizzi esclusivamente le proprie spedizioni.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\textwidth]{img/val_my_shipments.png}
+%\fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}\textit{Screenshot: lista spedizioni del cliente}\vspace{3cm}}}
+\caption{Pagina \emph{My Shipments} del cliente. Sono elencate le spedizioni associate all'account autenticato, con indirizzi, dimensioni, peso, veicolo assegnato e prezzo.}
+\label{fig:val_my_shipments}
+\end{figure}
+
+
+% ----------------------------------------------------------------------------
+\subsection{Fase 5 --- Visualizzazione dei viaggi programmati e avvio simulazione}
+\label{subsec:fase5}
 
 L'amministratore può vedere l'elenco dei viaggi programmati dalla sezione \emph{Trips} (Figura~\ref{fig:trip_details}). Per ogni viaggio è possibile visualizzare il percorso in mappa e gli shipment relativi.
 
@@ -138,29 +171,27 @@ Da postman è possibile usare un endpoint del backend per avviare la simulazione
 
 
 % ----------------------------------------------------------------------------
-\subsection{Fase 5 --- Rilevazione anomalia e notifica (Tecnico)}
-\label{subsec:fase5}
+\subsection{Fase 6 --- Rilevazione anomalia e notifica (Tecnico)}
+\label{subsec:fase6}
 
-Il tecnico accede alla piattaforma con le proprie credenziali e viene indirizzato alla sezione \emph{Monitor} dove si trova l'elenco dei veicoli dotati di refrigerazione (Figura~\ref{fig:val_tech_vehicle_list}). 
+Il tecnico accede alla piattaforma con le credenziali create dall'amministratore nella Fase~1 e viene indirizzato alla sezione \emph{Monitor} dove si trova l'elenco dei veicoli dotati di refrigerazione (Figura~\ref{fig:val_tech_vehicle_list}). 
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.95\textwidth]{img/val_tech_vehicle_list.png}
-%\fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}\textit{Screenshot: dashboard telemetrica in condizioni normali}\vspace{3cm}}}
 \caption{Elenco dei veicoli dotati di refrigerazione.}
 \label{fig:val_tech_vehicle_list}
 \end{figure}
 
-Durante i primi 60 minuti simulati, il modello LSTM Autoencoder ricostruisce correttamente le sequenze. A partire dal minuto 60 il dataset è influenzato dal guasto \texttt{UNDERCHARGE\_AND\_COND\_FOUL}.
+Durante i primi 900 minuti simulati, il modello LSTM Autoencoder ricostruisce correttamente le sequenze. A partire dal minuto 900 il dataset è influenzato dal guasto \texttt{UNDERCHARGE\_AND\_COND\_FOUL}.
 L'autoencoder inizia a produrre errori di ricostruzione superiori alla soglia. Dopo 20 campioni consecutivi anomali, il servizio di anomaly detection pubblica un messaggio di allerta sul topic \texttt{fridge/camion3/anomalies}.
 
-Il backend riceve il messaggio e crea una notifica persistente . L'icona delle notifiche nell'header si aggiorna con il badge numerico.
+Il backend riceve il messaggio e crea una notifica persistente. L'icona delle notifiche nell'header si aggiorna con il badge numerico.
 Il tecnico seleziona la notifica e accede al pannello notifiche (Figura~\ref{fig:val_notification}).
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.95\textwidth]{img/val_notification.png}
-%\fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}\textit{Screenshot: notifica di anomalia ricevuta}\vspace{3cm}}}
 \caption{Pannello notifiche del tecnico. La notifica indica il veicolo interessato (\texttt{camion3}), il timestamp dell'allerta e il messaggio. Il badge nell'header mostra il conteggio delle notifiche non lette.}
 \label{fig:val_notification}
 \end{figure}
@@ -170,7 +201,59 @@ Dall'elenco dei veicoli della sezione \emph{Monitor} il tecnico seleziona \textt
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.95\textwidth]{img/val_telemetry_anomaly.png}
-%\fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}\textit{Screenshot: dashboard telemetrica con anomalia visibile}\vspace{3cm}}}
-\caption{Dashboard telemetrica del veicolo \texttt{camion3}}
+\caption{Dashboard telemetrica del veicolo \texttt{camion3}.}
 \label{fig:val_telemetry_anomaly}
 \end{figure}
+
+
+% ----------------------------------------------------------------------------
+\subsection{Fase 7 --- Consultazione dei report (Tecnico)}
+\label{subsec:fase7}
+
+Il tecnico accede alla sezione \emph{Reports} per un'analisi più approfondita sull'operatività della flotta.
+
+Selezionando il report \textbf{Operating Hours} (Figura~\ref{fig:val_report_operating}), il tecnico visualizza la heatmap mensile che mostra i giorni di attività per ciascun veicolo. Cliccando su un giorno specifico, la vista esegue un drill-down sulle fasce orarie di funzionamento, consentendo di verificare in quale momento della giornata il veicolo era operativo.
+
+\begin{figure}[ht]
+\centering
+\begin{subfigure}[b]{0.95\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/val_report_operating_monthly.png}
+    \caption{Vista mensile: heatmap giorni di attività per veicolo.}
+    \label{fig:val_report_operating_monthly}
+\end{subfigure}
+
+\vspace{0.5cm}
+
+\begin{subfigure}[b]{0.95\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{img/val_report_operating_daily.png}
+    \caption{Drill-down giornaliero: fasce orarie di funzionamento.}
+    \label{fig:val_report_operating_daily}
+\end{subfigure}
+
+\caption{Report \emph{Operating Hours}. (a) La heatmap mensile evidenzia i giorni in cui la cella frigorifera di ciascun veicolo era operativa. (b) Selezionando un giorno, la griglia si trasforma mostrando il dettaglio orario.}
+\label{fig:val_report_operating}
+\end{figure}
+
+Passando al report \textbf{Cumulative Hours} (Figura~\ref{fig:val_report_cumulative}), il tecnico seleziona un intervallo temporale e visualizza l'istogramma di distribuzione delle ore totali di funzionamento dei veicoli, con curva cumulativa percentuale sovrapposta. Questa vista consente di identificare eventuali squilibri nell'utilizzo della flotta.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\textwidth]{img/val_report_cumulative_hours.png}
+%\fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}\textit{Screenshot: report ore cumulative --- istogramma con curva cumulativa}\vspace{3cm}}}
+\caption{Report \emph{Cumulative Hours}. L'istogramma mostra la distribuzione delle ore totali di funzionamento dei veicoli nell'intervallo selezionato, con curva cumulativa percentuale sovrapposta.}
+\label{fig:val_report_cumulative}
+\end{figure}
+
+Infine, il report \textbf{Alert Report} (Figura~\ref{fig:val_report_alerts}) mostra il conteggio delle anomalie per veicolo. Il tecnico può configurare la granularità temporale (anno, mese o giorno) e filtrare per singolo veicolo. 
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.95\textwidth]{img/val_report_alerts.png}
+%\fbox{\parbox{0.9\textwidth}{\centering\vspace{3cm}\textit{Screenshot: report anomalie per veicolo}\vspace{3cm}}}
+\caption{Report \emph{Alert Report}. Il grafico mostra il conteggio delle anomalie per veicolo con granularità temporale configurabile.}
+\label{fig:val_report_alerts}
+\end{figure}
+
+Per ciascun report, il tecnico ha la possibilità di esportare i dati in formato CSV tramite il pulsante \emph{Export CSV}, per eventuali analisi esterne.

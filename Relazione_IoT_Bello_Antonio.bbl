@@ -19,45 +19,6 @@
 
 \refsection{0}
   \datalist[entry]{nty/global//global/global}
-    \entry{atasoy2020}{article}{}
-      \name{author}{3}{}{%
-        {{hash=14929453cebfbc632000e3a38dac49c0}{%
-           family={Atasoy},
-           familyi={A\bibinitperiod},
-           given={Bilge},
-           giveni={B\bibinitperiod}}}%
-        {{hash=646795b883b01f4ec60637512f9c7fb3}{%
-           family={Schulte},
-           familyi={S\bibinitperiod},
-           given={Frederik},
-           giveni={F\bibinitperiod}}}%
-        {{hash=a5f75bed69a318c8736b7a3f1b36e6bc}{%
-           family={Steenkamp},
-           familyi={S\bibinitperiod},
-           given={Alex},
-           giveni={A\bibinitperiod}}}%
-      }
-      \strng{namehash}{88f01ca30bf78ebb17aeb949b4c27b6e}
-      \strng{fullhash}{88f01ca30bf78ebb17aeb949b4c27b6e}
-      \strng{bibnamehash}{88f01ca30bf78ebb17aeb949b4c27b6e}
-      \strng{authorbibnamehash}{88f01ca30bf78ebb17aeb949b4c27b6e}
-      \strng{authornamehash}{88f01ca30bf78ebb17aeb949b4c27b6e}
-      \strng{authorfullhash}{88f01ca30bf78ebb17aeb949b4c27b6e}
-      \field{sortinit}{A}
-      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{journaltitle}{Transportation Research Record}
-      \field{number}{10}
-      \field{title}{Platform-Based Collaborative Routing using Dynamic Prices as Incentives}
-      \field{volume}{2674}
-      \field{year}{2020}
-      \field{pages}{670\bibrangedash 684}
-      \range{pages}{15}
-      \verb{doi}
-      \verb 10.1177/0361198120935116
-      \endverb
-    \endentry
     \entry{carrierlynx2024}{misc}{}
       \name{author}{1}{}{%
         {{hash=36d70adc4abbb7d3cfd6444cd042bbd6}{%
@@ -108,35 +69,95 @@
       \verb https://www.flockfreight.com
       \endverb
     \endentry
-    \entry{malhotra2016}{article}{}
+    \entry{hu2020sensors}{article}{}
       \name{author}{4}{}{%
+        {{hash=1e940185767217c7241f6bca897bf796}{%
+           family={Hu},
+           familyi={H\bibinitperiod},
+           given={Di},
+           giveni={D\bibinitperiod}}}%
+        {{hash=c9191dc69bc22ce41fc456ae9eb63db8}{%
+           family={Zhang},
+           familyi={Z\bibinitperiod},
+           given={Chen},
+           giveni={C\bibinitperiod}}}%
+        {{hash=30dbf96c2effbc0427e80f15e466813e}{%
+           family={Yang},
+           familyi={Y\bibinitperiod},
+           given={Tao},
+           giveni={T\bibinitperiod}}}%
+        {{hash=293c31f46eb012efc4b2449215c92484}{%
+           family={Chen},
+           familyi={C\bibinitperiod},
+           given={Gang},
+           giveni={G\bibinitperiod}}}%
+      }
+      \strng{namehash}{1fd6caa7843cf1ff2103e34719fa49c2}
+      \strng{fullhash}{49f8be7bab20f18a09f7c502eee76676}
+      \strng{bibnamehash}{1fd6caa7843cf1ff2103e34719fa49c2}
+      \strng{authorbibnamehash}{1fd6caa7843cf1ff2103e34719fa49c2}
+      \strng{authornamehash}{1fd6caa7843cf1ff2103e34719fa49c2}
+      \strng{authorfullhash}{49f8be7bab20f18a09f7c502eee76676}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Sensors}
+      \field{number}{21}
+      \field{title}{Anomaly Detection of Power Plant Equipment Using Long Short-Term Memory Based Autoencoder Neural Network}
+      \field{volume}{20}
+      \field{year}{2020}
+      \field{pages}{6164}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.3390/s20216164
+      \endverb
+      \verb{urlraw}
+      \verb https://www.mdpi.com/1424-8220/20/21/6164
+      \endverb
+      \verb{url}
+      \verb https://www.mdpi.com/1424-8220/20/21/6164
+      \endverb
+    \endentry
+    \entry{malhotra2016}{article}{}
+      \name{author}{6}{}{%
         {{hash=dcd5dcd4e4f78f96e2f472d3f01ede9c}{%
            family={Malhotra},
            familyi={M\bibinitperiod},
            given={Pankaj},
            giveni={P\bibinitperiod}}}%
+        {{hash=d31c40be83c6c4e91877c31622bdc33a}{%
+           family={Ramakrishnan},
+           familyi={R\bibinitperiod},
+           given={Anusha},
+           giveni={A\bibinitperiod}}}%
+        {{hash=0120e6b0607adbcd6b2dc964a3398b08}{%
+           family={Anand},
+           familyi={A\bibinitperiod},
+           given={Gaurangi},
+           giveni={G\bibinitperiod}}}%
         {{hash=dd153a0cfbbb770a226276234db9aa76}{%
            family={Vig},
            familyi={V\bibinitperiod},
            given={Lovekesh},
            giveni={L\bibinitperiod}}}%
-        {{hash=11ddfe25cf35d38891cff07417fe10cf}{%
-           family={Shroff},
-           familyi={S\bibinitperiod},
-           given={Gautam},
-           giveni={G\bibinitperiod}}}%
         {{hash=e3552fa0520a6e47f5555c944932844d}{%
            family={Agarwal},
            familyi={A\bibinitperiod},
            given={Puneet},
            giveni={P\bibinitperiod}}}%
+        {{hash=11ddfe25cf35d38891cff07417fe10cf}{%
+           family={Shroff},
+           familyi={S\bibinitperiod},
+           given={Gautam},
+           giveni={G\bibinitperiod}}}%
       }
       \strng{namehash}{188cd65c41d431d5d7edef39504ff5a7}
-      \strng{fullhash}{3ab9a1b07242170a27c892f83383c86c}
+      \strng{fullhash}{57048ce25d0cba82861b5b81762a91df}
       \strng{bibnamehash}{188cd65c41d431d5d7edef39504ff5a7}
       \strng{authorbibnamehash}{188cd65c41d431d5d7edef39504ff5a7}
       \strng{authornamehash}{188cd65c41d431d5d7edef39504ff5a7}
-      \strng{authorfullhash}{3ab9a1b07242170a27c892f83383c86c}
+      \strng{authorfullhash}{57048ce25d0cba82861b5b81762a91df}
       \field{sortinit}{M}
       \field{sortinithash}{4625c616857f13d17ce56f7d4f97d451}
       \field{labelnamesource}{author}
@@ -144,40 +165,14 @@
       \field{journaltitle}{arXiv preprint arXiv:1607.00148}
       \field{title}{LSTM-based Encoder-Decoder for Multi-sensor Anomaly Detection}
       \field{year}{2016}
+      \verb{doi}
+      \verb 10.48550/arXiv.1607.00148
+      \endverb
       \verb{urlraw}
       \verb https://arxiv.org/abs/1607.00148
       \endverb
       \verb{url}
       \verb https://arxiv.org/abs/1607.00148
-      \endverb
-    \endentry
-    \entry{quicargo2024}{online}{}
-      \name{author}{1}{}{%
-        {{hash=ae42ea976f0292167951210827395e6e}{%
-           family={{Quicargo B.V.}},
-           familyi={Q\bibinitperiod}}}%
-      }
-      \strng{namehash}{ae42ea976f0292167951210827395e6e}
-      \strng{fullhash}{ae42ea976f0292167951210827395e6e}
-      \strng{bibnamehash}{ae42ea976f0292167951210827395e6e}
-      \strng{authorbibnamehash}{ae42ea976f0292167951210827395e6e}
-      \strng{authornamehash}{ae42ea976f0292167951210827395e6e}
-      \strng{authorfullhash}{ae42ea976f0292167951210827395e6e}
-      \field{sortinit}{Q}
-      \field{sortinithash}{ce69a400a872ddd02ee7fdb3b38c6abd}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{title}{Digital Freight Platform for Road Transport and Logistics}
-      \field{urlday}{24}
-      \field{urlmonth}{2}
-      \field{urlyear}{2025}
-      \field{year}{2024}
-      \field{urldateera}{ce}
-      \verb{urlraw}
-      \verb https://quicargo.com
-      \endverb
-      \verb{url}
-      \verb https://quicargo.com
       \endverb
     \endentry
     \entry{kaggle_fridge}{online}{}
@@ -258,7 +253,7 @@
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{journaltitle}{arXiv preprint arXiv:2204.06701}
-      \field{title}{LSTM-Autoencoder based Anomaly Detection for Indoor Air Quality Time Series Data}
+      \field{title}{LSTM-Autoencoder Based Anomaly Detection for Indoor Air Quality Time Series Data}
       \field{year}{2022}
       \verb{doi}
       \verb 10.48550/arXiv.2204.06701

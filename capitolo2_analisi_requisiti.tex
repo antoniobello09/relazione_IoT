@@ -9,7 +9,7 @@ I requisiti funzionali definiscono le capacità operative che la piattaforma dev
 
 \subsection{Gestione degli utenti e autenticazione}
 
-Il sistema deve consentire l'autenticazione mediante credenziali protette. A ogni utente autenticato viene assegnato un ruolo tra amministratore e tecnico. Il cliente non ha bisogno di autenticazione.
+Il sistema deve consentire la registrazione autonoma dei clienti mediante email e password. L'amministratore deve poter creare nuovi account per i tecnici, assegnando loro le credenziali di accesso. L'autenticazione avviene tramite credenziali protette e, al momento del login, il sistema assegna un token di sessione associato al ruolo dell'utente (amministratore, cliente o tecnico).
 
 \subsection{Gestione della flotta}
 
@@ -21,19 +21,35 @@ L'amministratore deve poter visualizzare l'elenco dei viaggi programmati e consu
 
 \subsection{Ricerca e prenotazione delle spedizioni}
 
-Il cliente deve poter ricercare i viaggi disponibili inserendo l'indirizzo di partenza, l'indirizzo di arrivo, le caratteristiche del proprio pacco --- dimensioni, peso, necessità di refrigerazione --- e la data entro cui la consegna deve essere completata. 
+Il cliente autenticato deve poter ricercare i viaggi disponibili inserendo l'indirizzo di partenza, l'indirizzo di arrivo, le caratteristiche del proprio pacco --- dimensioni, peso, necessità di refrigerazione --- e la data entro cui la consegna deve essere completata. 
 Il sistema deve restituire due categorie di risultati: nuovi viaggi, generati a partire dai veicoli della flotta ancora privi di viaggi assegnati con percorso calcolato ad hoc, e viaggi condivisi, corrispondenti a viaggi già programmati che dispongano di capacità residua sufficiente e di compatibilità geografica con il percorso richiesto. Per i viaggi condivisi, il prezzo deve essere ricalcolato applicando un meccanismo di divisione basato sul numero di spedizioni già presenti, in modo da incentivare la condivisione del veicolo. Il cliente seleziona il viaggio desiderato tra quelli proposti. Alla conferma della selezione, il sistema deve: nel caso di un nuovo viaggio, crearlo automaticamente con il percorso calcolato; nel caso di un viaggio condiviso, ricalcolare dinamicamente il percorso introducendo le fermate del nuovo cliente come tappe intermedie.
+
+\subsection{Consultazione delle spedizioni del cliente}
+
+Il cliente autenticato deve poter consultare l'elenco delle proprie spedizioni, con i relativi dettagli quali indirizzi di partenza e arrivo, dimensioni e peso del pacco, veicolo assegnato e prezzo.
 
 \subsection{Monitoraggio telemetrico in tempo reale}
 
-Il sistema deve acquisire i dati telemetrici provenienti dai sensori installati a bordo dei veicoli refrigerati. Il tecnico deve poter visualizzare i dati telemetrici attraverso una dashboard che presenti l'andamento temporale dei parametri mediante grafici, con la possibilità di filtrare per veicolo e per tipologia di dato telemetrico.
+Il sistema deve acquisire i dati telemetrici provenienti dai sensori installati a bordo dei veicoli refrigerati. Il tecnico deve poter visualizzare i dati telemetrici attraverso una dashboard che presenti l'andamento temporale dei parametri mediante grafici, con la possibilità di filtrare per veicolo, per tipologia di dato telemetrico e per periodo temporale.
 
 \subsection{Rilevazione delle anomalie}
 
 Un servizio dedicato deve analizzare in maniera continuativa i flussi telemetrici provenienti dai veicoli e identificare automaticamente condizioni anomale. Quando un'anomalia viene confermata, il sistema deve generare una notifica persistente, associata al veicolo interessato.
+
 \subsection{Gestione delle notifiche}
 
-Il tecnico deve poter consultare l'elenco delle notifiche ricevute, ciascuna contenente il nome del veicolo, il timestamp dell'evento, l'errore di ricostruzione e un messaggio descrittivo dell'anomalia rilevata. 
+Il tecnico deve poter consultare l'elenco delle notifiche ricevute, ciascuna contenente il nome del veicolo, il timestamp dell'evento, l'errore di ricostruzione e un messaggio descrittivo dell'anomalia rilevata.
+
+\subsection{Reportistica della flotta}
+
+Il tecnico deve poter accedere a una sezione dedicata ai report, che comprende tre tipologie di analisi:
+\begin{itemize}
+    \item \textbf{Ore operative}: vista mensile, per ciascun veicolo, dei giorni in cui le celle frigorifere sono state in funzione, con possibilità di drill-down giornaliero per analizzare le fasce orarie di funzionamento;
+    \item \textbf{Ore cumulative}: distribuzione del numero di ore di funzionamento delle celle frigorifere dei veicoli in un intervallo temporale selezionabile, presentata sotto forma di istogramma;
+    \item \textbf{Report anomalie}: conteggio delle anomalie rilevate per veicolo, con granularità configurabile (anno, mese, giorno).
+\end{itemize}
+Per ciascun report, il tecnico deve poter esportare i dati in formato CSV.
+
 \section{Requisiti Non Funzionali}
 
 I requisiti non funzionali specificano le qualità architetturali e operative che il sistema deve garantire trasversalmente rispetto alle singole funzionalità.
@@ -44,7 +60,7 @@ L'interfaccia utente deve essere progettata con particolare attenzione alla chia
 
 \subsection{Sicurezza}
 
-Il sistema deve proteggere le comunicazioni tra client e server mediante autenticazione e assegnazione dei ruoli agli utenti autenticati. Le password degli utenti devono essere memorizzate in forma cifrata. 
+Il sistema deve proteggere le comunicazioni tra client e server mediante autenticazione basata su token JWT e assegnazione dei ruoli agli utenti autenticati. Le password degli utenti devono essere memorizzate in forma cifrata. L'accesso alle risorse deve essere regolato in base al ruolo, impedendo a utenti non autorizzati di accedere a funzionalità riservate ad altri profili.
 
 \subsection{Modularità e manutenibilità}
 

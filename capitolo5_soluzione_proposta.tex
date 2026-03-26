@@ -40,12 +40,14 @@ Infine, \textbf{MongoDB} (porta 27017) funge da database centralizzato, organizz
 Il sistema prevede tre ruoli distinti, ciascuno con un perimetro di azioni e una vista dell'interfaccia dedicati:
 
 \begin{itemize}
-    \item \textbf{ADMIN}: gestisce la flotta (aggiunta e rimozione di veicoli), visualizza l'elenco dei viaggi programmati.
-    \item \textbf{CLIENT}: ricerca viaggi compatibili con le proprie esigenze di spedizione, confronta le opzioni disponibili (inizializzazione di un nuovo viaggio o condividere un viaggio già esistente con altre spedizioni) e prenota la spedizione.
-    \item \textbf{TECHNICIAN}: accede alla dashboard di monitoraggio, visualizza lo storico telemetrico dei veicoli e gestisce le notifiche di anomalia.
+    \item \textbf{ADMIN}: crea nuovi account per i tecnici, gestisce la flotta (aggiunta e rimozione di veicoli), visualizza l'elenco dei viaggi programmati e le spedizioni associate.
+    \item \textbf{CLIENT}: si registra autonomamente sulla piattaforma, ricerca viaggi compatibili con le proprie esigenze di spedizione, confronta le opzioni disponibili (inizializzazione di un nuovo viaggio o condivisione di un viaggio già esistente con altre spedizioni), prenota la spedizione e consulta lo storico delle proprie spedizioni.
+    \item \textbf{TECHNICIAN}: accede alla dashboard di monitoraggio, visualizza lo storico telemetrico dei veicoli, gestisce le notifiche di anomalia e consulta i report sulla flotta.
 \end{itemize}
 
-L'autenticazione è implementata tramite token JWT (\textit{JSON Web Token}). All'atto del login, il backend verifica le credenziali --- la password è memorizzata con hashing Argon2 --- e genera un token firmato contenente l'email dell'utente e il suo ruolo. Il token viene incluso nell'header \texttt{Authorization} di ogni richiesta successiva e validato da un filtro che precede l'elaborazione della richiesta stessa. La catena di sicurezza Spring Security definisce quali endpoint sono accessibili a ciascun ruolo: ad esempio, le operazioni di gestione della flotta richiedono il ruolo \texttt{ADMIN}, mentre l'accesso alla telemetria e alle notifiche è riservato al ruolo \texttt{TECHNICIAN}. Gli endpoint di autenticazione e di prenotazione delle spedizioni sono invece pubblici.
+La registrazione del cliente avviene tramite un form pubblico che richiede email e password; il backend forza il ruolo a \texttt{CLIENT} lato server, impedendo l'auto-assegnazione di ruoli privilegiati. La creazione dei tecnici è invece riservata all'amministratore, che accede a una schermata dedicata per inserire le credenziali del nuovo tecnico con ruolo \texttt{TECHNICIAN} preassegnato.
+
+L'autenticazione è implementata tramite token JWT (\textit{JSON Web Token}). All'atto del login, il backend verifica le credenziali --- la password è memorizzata con hashing Argon2 --- e genera un token firmato contenente l'email dell'utente e il suo ruolo. Il token viene incluso nell'header \texttt{Authorization} di ogni richiesta successiva e validato da un filtro che precede l'elaborazione della richiesta stessa. La catena di sicurezza Spring Security definisce quali endpoint sono accessibili a ciascun ruolo: ad esempio, le operazioni di gestione della flotta richiedono il ruolo \texttt{ADMIN}, la ricerca e prenotazione dei viaggi e la consultazione delle proprie spedizioni richiedono il ruolo \texttt{CLIENT}, mentre l'accesso alla telemetria, alle notifiche e ai report è riservato al ruolo \texttt{TECHNICIAN}. Gli endpoint di autenticazione e di registrazione del cliente sono invece pubblici.
 
 
 % ============================================================================
@@ -107,6 +109,11 @@ Il cliente visualizza tutte le opzioni --- viaggi nuovi e viaggi già esistenti.
 Dopo la selezione del viaggio, il backend esegue l'operazione seguente: se il viaggio è nuovo (veicolo senza trip assegnato), viene creata una nuova entità \texttt{Trip}; 
 se il viaggio è già esistente, viene aggiornata l'entità \texttt{Trip} esistente con il nuovo percorso (inclusivo dei waypoint) e la capacità residua aggiornata. In entrambi i casi, viene creata un'entità \texttt{Shipment} associato al viaggio.
 
+% ============================================================================
+\section{Consultazione delle spedizioni del cliente}
+\label{sec:spedizioni_cliente}
+
+Il cliente autenticato può accedere alla pagina delle proprie spedizioni, che elenca tutte le spedizioni associate al suo account. L'identificativo del cliente viene estratto lato server dal token JWT, garantendo che ciascun utente possa visualizzare esclusivamente le proprie spedizioni senza possibilità di accesso a quelle altrui. Per ciascuna spedizione vengono mostrati: indirizzo di partenza e arrivo, dimensioni e peso del pacco, veicolo assegnato, prezzo e data di arrivo prevista.
 
 % ============================================================================
 \section{Generazione dei dati telemetrici}
@@ -153,7 +160,7 @@ L'interfaccia del tecnico presenta le notifiche in ordine cronologico con un bad
 
 
 % ============================================================================
-\section{Dashboard telemetrica}
+\section{Dashboard telemetrica e reportistica}
 \label{sec:dashboard}
 
 La dashboard di monitoraggio consente al tecnico di visualizzare lo storico telemetrico dei veicoli tramite grafici temporali interattivi. L'interfaccia è organizzata in due livelli: un selettore del veicolo, che elenca i veicoli con refrigerazione, e un pannello di visualizzazione con grafici ad area realizzati tramite Recharts.
@@ -161,4 +168,14 @@ La dashboard di monitoraggio consente al tecnico di visualizzare lo storico tele
 Per ciascun veicolo selezionato, il frontend richiede al backend l'elenco completo dei dati telemetrici memorizzati, ordinati cronologicamente. 
 Il tecnico può filtrare la visualizzazione per categoria di parametro (ad esempio, temperature o pressioni) e per intervallo temporale. 
 
+\subsection{Reportistica della flotta}
 
+Il tecnico accede a una sezione dedicata ai report, che offre tre tipologie di analisi basate su aggregation pipeline MongoDB eseguite sulla collezione \texttt{telemetry} (per i report operativi) e sulla collezione \texttt{notification} (per il report anomalie).
+
+Il \textbf{report ore operative} presenta una vista mensile in formato heatmap, dove ciascuna cella rappresenta un giorno del mese e la colorazione indica la presenza di attività telemetrica per quel veicolo. L'aggregazione raggruppa i documenti telemetrici per veicolo e giorno, restituendo per ciascun mezzo l'elenco dei giorni attivi nel mese selezionato. Il tecnico può effettuare un drill-down su un singolo giorno per visualizzare le fasce orarie di funzionamento, ottenute mediante un'ulteriore aggregazione che raggruppa per veicolo e ora.
+
+Il \textbf{report ore cumulative} mostra la distribuzione del numero di ore di funzionamento delle celle frigorifere dei veicoli in un intervallo temporale selezionabile. L'aggregazione conta le ore distinte (combinazione giorno-ora) con dati telemetrici per ciascun veicolo. Il frontend presenta i risultati sotto forma di istogramma con un numero configurabile di classi e una curva cumulativa percentuale sovrapposta.
+
+Il \textbf{report anomalie} conteggia le notifiche di anomalia per veicolo, con granularità progressiva configurabile: anno, mese o giorno. L'aggregazione opera sulla collezione \texttt{notification}, filtrando per prefisso temporale e raggruppando per veicolo con ordinamento decrescente per numero di anomalie. Il tecnico può inoltre filtrare per singolo veicolo per un'analisi mirata.
+
+Per ciascun report è disponibile una funzione di esportazione in formato CSV, che consente al tecnico di scaricare i dati per analisi esterne.

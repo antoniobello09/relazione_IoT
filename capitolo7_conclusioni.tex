@@ -31,10 +31,6 @@ Questa complessità diventa un collo di bottiglia all'aumentare del numero di vi
 
 L'adozione di PostgreSQL con l'estensione PostGIS consentirebbe di sfruttare l'indicizzazione spaziale tramite R-tree: la funzione \texttt{ST\_Distance} opera su geometrie indicizzate con complessità $O(\log n)$, riducendo drasticamente il tempo di ricerca. Inoltre, PostGIS offre nativamente operazioni come il buffer spaziale e l'intersezione tra geometrie.
 
-\subsection{Portale cliente per il tracking delle spedizioni}
-
-Attualmente il ruolo \texttt{CLIENT} è limitato alla fase di ricerca e prenotazione. Una volta confermata la spedizione, il cliente non dispone di strumenti per monitorarne lo stato. Un'evoluzione prevede la creazione di un'area riservata in cui il cliente possa visualizzare lo stato della spedizione in tempo reale, con stima dell'orario di arrivo calcolata sulla base della posizione corrente del veicolo e della rotta pianificata, e notifiche automatiche all'approssimarsi del ritiro o della consegna.
-
 \subsection{Sistema di notifiche push per il tecnico}
 
 Il sistema attuale di notifiche per anomalie è consultabile esclusivamente tramite la dashboard web: il tecnico deve accedere alla piattaforma per verificare la presenza di nuovi alert. In un contesto operativo reale, le anomalie della catena del freddo richiedono interventi tempestivi. L'integrazione di canali di notifica push, tramite email (SMTP o servizi come SendGrid) e notifiche mobile (Firebase Cloud Messaging), garantirebbe che il tecnico venga avvisato immediatamente al verificarsi di un'anomalia, indipendentemente dal fatto che stia consultando la dashboard in quel momento.
