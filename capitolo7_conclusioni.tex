@@ -24,12 +24,12 @@ Il modello LSTM autoencoder attuale opera sulle 15~feature grezze del dataset di
 
 Un miglioramento consiste nell'estrazione di feature derivate da fornire in input al modello.
 
-\subsection{Indicizzazione spaziale con PostGIS}
+%\subsection{Indicizzazione spaziale con PostGIS}
 
-Il calcolo della distanza punto-polyline, utilizzato per determinare la compatibilità tra un punto di ritiro/consegna e un percorso esistente, avviene attualmente con una scansione lineare $O(n)$ su tutti i segmenti della polyline decodificata. 
-Questa complessità diventa un collo di bottiglia all'aumentare del numero di viaggi e della lunghezza dei percorsi.
+%Il calcolo della distanza punto-polyline, utilizzato per determinare la compatibilità tra un punto di ritiro/consegna e un percorso esistente, avviene attualmente con una scansione lineare $O(n)$ su tutti i segmenti della polyline decodificata. 
+%Questa complessità diventa un collo di bottiglia all'aumentare del numero di viaggi e della lunghezza dei percorsi.
 
-L'adozione di PostgreSQL con l'estensione PostGIS consentirebbe di sfruttare l'indicizzazione spaziale tramite R-tree: la funzione \texttt{ST\_Distance} opera su geometrie indicizzate con complessità $O(\log n)$, riducendo drasticamente il tempo di ricerca. Inoltre, PostGIS offre nativamente operazioni come il buffer spaziale e l'intersezione tra geometrie.
+%L'adozione di PostgreSQL con l'estensione PostGIS consentirebbe di sfruttare l'indicizzazione spaziale tramite R-tree: la funzione \texttt{ST\_Distance} opera su geometrie indicizzate con complessità $O(\log n)$, riducendo drasticamente il tempo di ricerca. Inoltre, PostGIS offre nativamente operazioni come il buffer spaziale e l'intersezione tra geometrie.
 
 \subsection{Sistema di notifiche push per il tecnico}
 

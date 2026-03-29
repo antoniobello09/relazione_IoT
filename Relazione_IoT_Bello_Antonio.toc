@@ -49,7 +49,7 @@
 \contentsline {section}{\numberline {5.7}Pipeline di anomaly detection}{23}{section.5.7}%
 \contentsline {subsection}{\numberline {5.7.1}Addestramento del modello}{23}{subsection.5.7.1}%
 \contentsline {subsection}{\numberline {5.7.2}Inferenza in tempo reale}{24}{subsection.5.7.2}%
-\contentsline {subsection}{\numberline {5.7.3}Smoothing con contatori consecutivi}{24}{subsection.5.7.3}%
+\contentsline {subsection}{\numberline {5.7.3}Isteresi sulla rilevazione delle anomalie}{24}{subsection.5.7.3}%
 \contentsline {section}{\numberline {5.8}Gestione delle notifiche}{25}{section.5.8}%
 \contentsline {section}{\numberline {5.9}Dashboard telemetrica e reportistica}{25}{section.5.9}%
 \contentsline {subsection}{\numberline {5.9.1}Reportistica della flotta}{25}{subsection.5.9.1}%
@@ -69,5 +69,4 @@
 \contentsline {subsection}{\numberline {7.2.1}Ottimizzazione temporale e scheduling attivo}{40}{subsection.7.2.1}%
 \contentsline {subsection}{\numberline {7.2.2}Scalabilità su piattaforme cloud}{41}{subsection.7.2.2}%
 \contentsline {subsection}{\numberline {7.2.3}Miglioramento della sensibilità dell'anomaly detection}{41}{subsection.7.2.3}%
-\contentsline {subsection}{\numberline {7.2.4}Indicizzazione spaziale con PostGIS}{41}{subsection.7.2.4}%
-\contentsline {subsection}{\numberline {7.2.5}Sistema di notifiche push per il tecnico}{41}{subsection.7.2.5}%
+\contentsline {subsection}{\numberline {7.2.4}Sistema di notifiche push per il tecnico}{41}{subsection.7.2.4}%

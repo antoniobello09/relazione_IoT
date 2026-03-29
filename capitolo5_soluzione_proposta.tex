@@ -54,7 +54,7 @@ L'autenticazione è implementata tramite token JWT (\textit{JSON Web Token}). Al
 \section{Gestione della flotta e dei viaggi}
 \label{sec:gestione_flotta}
 
-L'amministratore dispone di tre schermate dedicate alla gestione operativa della piattaforma: la registrazione di nuovi veicoli, la consultazione della flotta e il monitoraggio dei viaggi programmati.
+L'amministratore dispone di tre schermate dedicate alla gestione operativa della piattaforma: la registrazione di nuovi veicoli, la consultazione della flotta e la visualizzazione dei viaggi programmati.
 
 \subsection{Aggiunta di un veicolo}
 
@@ -80,7 +80,7 @@ Quando un cliente inserisce i dati della propria spedizione (indirizzo di parten
 
 \subsection{Fase 2 --- Ricerca dei viaggi già programmati}
 
-Parallelamente, il sistema cerca viaggi già programmati che abbiano capacità residua sufficiente e data di arrivo compatibile. 
+Successivamente, il sistema cerca viaggi già programmati che abbiano capacità residua sufficiente e data di arrivo compatibile. 
 Anche questa ricerca è implementata come aggregation pipeline: il primo stadio esegue un \texttt{\$lookup} con la collezione \texttt{vehicle} per recuperare la tipologia di refrigerazione; il secondo filtra per capacità residua, refrigerazione e data.
 
 \subsection{Fase 3 --- Validazione geografica dei viaggi già programmati}
@@ -120,21 +120,21 @@ Il cliente autenticato può accedere alla pagina delle proprie spedizioni, che e
 \label{sec:generazione_dati}
 
 La simulazione della telemetria di bordo si basa su un modello termodinamico che riproduce il comportamento fisico di un impianto frigorifero a compressione di vapore. 
-Il generatore, derivato dal dataset Kaggle \textit{Simulated Refrigerator Fault Diagnosis} \cite{kaggle_fridge}, produce dataset CSV contenenti 120 campioni da 15 feature ciascuno (un campione rappresenta dati estratti in un certo minuto), strutturati in due fasi: i primi 60 minuti in condizioni normali, seguiti da 60 minuti con un guasto iniettato. 
+Il generatore, derivato dal dataset Kaggle \textit{Simulated Refrigerator Fault Diagnosis} \cite{kaggle_fridge}, produce dataset CSV contenenti campioni da 15 feature ciascuno (un campione rappresenta dati estratti in un certo minuto) e sono strutturati in due fasi: la prima fase contiene dati prodotti in condizioni normali, la seconda fase contiene dati prodotti con un guasto iniettato. 
 Sono previste varie tipologie di guasto, tra cui: fouling del condensatore (lieve e severo), degradazione e guasto della ventola dell'evaporatore, ecc. 
 
-Il servizio di streaming legge questi CSV e pubblica ciascuna riga sul topic MQTT \texttt{fridge/\{vehicleName\}/telemetry} con un intervallo configurabile (default: 1 secondo), includendo un timestamp ISO e un indice di riga progressivo. Al termine del dataset, pubblica un messaggio di completamento con \texttt{stream\_status: "completed"}, che segnala agli altri servizi la fine dello stream.
+Lo sviluppatore può far partire una simulazione tramite un endpoint del backend. Il backend a sua volta sfrutta un endpoint del servizio di streaming per l'avvio dello stream telemetrico. Il servizio di streaming legge un CSV e pubblica ciascuna riga sul topic MQTT \texttt{fridge/\{vehicleName\}/telemetry} con un intervallo di 1 secondo, includendo un timestamp ISO e un indice di riga progressivo. Al termine del dataset, pubblica un messaggio di completamento con \texttt{stream\_status: "completed"}, che segnala agli altri servizi la fine dello stream.
 
 
 % ============================================================================
 \section{Pipeline di anomaly detection}
 \label{sec:anomaly_detection}
 
-La rilevazione delle anomalie si articola in tre fasi: l'addestramento offline del modello, l'inferenza in tempo reale e il meccanismo di smoothing per la riduzione dei falsi positivi.
+La rilevazione delle anomalie si articola in tre fasi: l'addestramento offline del modello, l'inferenza in tempo reale e il meccanismo di isteresi per la riduzione dei falsi positivi.
 
 \subsection{Addestramento del modello}
 
-Il modello LSTM Autoencoder è stato addestrato su Google Colab con GPU Tesla T4, utilizzando un dataset composto esclusivamente da dati di funzionamento normale. L'architettura del modello è la seguente: un encoder LSTM con 15 feature in ingresso e hidden size pari a 16, uno strato lineare di compressione che riduce la rappresentazione a uno spazio latente di dimensione 8, due strati lineari che inizializzano hidden state e cell state del decoder a partire dalla rappresentazione latente, un decoder LSTM con hidden size 16 alimentato da una sequenza di zeri (la ricostruzione dipende interamente dallo stato latente) e uno strato lineare di output che proietta la dimensione nascosta nelle 15 feature originali.
+Il modello LSTM Autoencoder è stato addestrato su Google Colab con GPU Tesla T4, utilizzando un dataset composto esclusivamente da dati di funzionamento normale. L'architettura del modello è la seguente: un encoder LSTM con 15 feature in ingresso e hidden size pari a 32, uno strato lineare di compressione che riduce la rappresentazione a uno spazio latente di dimensione 8, due strati lineari che inizializzano hidden state e cell state del decoder a partire dalla rappresentazione latente, un decoder LSTM con hidden size 32 alimentato da una sequenza di zeri (la ricostruzione dipende interamente dallo stato latente) e uno strato lineare di output che proietta la dimensione nascosta nelle 15 feature originali.
 
 La soglia di anomalia è stata determinata calcolando l'MSE di ricostruzione su tutto il dataset di training normale e prendendo il 95\textdegree{} percentile della distribuzione risultante ($\text{threshold} = 0,009868$).
 \subsection{Inferenza in tempo reale}
@@ -142,14 +142,27 @@ La soglia di anomalia è stata determinata calcolando l'MSE di ricostruzione su 
 Il servizio di anomaly detection sottoscrive il topic \texttt{fridge/+/telemetry} tramite il broker MQTT, ricevendo i dati di tutti i veicoli. Per ciascun veicolo viene creato dinamicamente un'istanza di \texttt{VehicleAnomalyDetector} alla ricezione del primo messaggio, garantendo il supporto simultaneo di più veicoli con buffer e contatori indipendenti.
 
 Ad ogni messaggio ricevuto, le 15 feature vengono estratte, normalizzate con lo scaler e inserite in un buffer a finestra scorrevole di 30 campioni. Quando il buffer è pieno, la finestra viene convertita in un tensore PyTorch e passata al modello in modalità di inferenza (\texttt{torch.no\_grad()}). L'errore di ricostruzione, calcolato come MSE tra input e output mediato su tutti i timestep e tutte le feature, viene confrontato con la soglia. Al completamento dello stream, il detector del veicolo viene rimosso e le sue risorse liberate.
+\subsection{Isteresi sulla rilevazione delle anomalie}
 
-\subsection{Smoothing con contatori consecutivi}
+Per evitare che oscillazioni transitorie dell'errore di ricostruzione 
+generino falsi allarmi, il sistema implementa un meccanismo di isteresi 
+basato su contatori consecutivi. Vengono mantenuti due contatori per 
+ciascun veicolo: un \texttt{anomaly\_counter}, che si incrementa ad ogni 
+campione con $\text{MSE} > \text{threshold}$ e si azzera al primo campione 
+normale, e un \texttt{normal\_counter}, che opera in modo simmetrico. 
+La transizione dallo stato normale allo stato di anomalia avviene solo 
+quando il contatore di anomalie supera la soglia di 20 campioni consecutivi; 
+analogamente, il ritorno allo stato normale richiede 20 campioni consecutivi 
+sotto soglia. Le due soglie di transizione distinte — una per entrare nello stato 
+di anomalia e una per uscirne — impediscono oscillazioni rapide 
+attorno al valore di soglia, introducendo un ritardo controllato 
+nella segnalazione (20 minuti con campionamento al minuto), ma 
+eliminando le notifiche spurie causate da picchi isolati.
 
-Per evitare che oscillazioni transitorie dell'errore di ricostruzione generino falsi allarmi, il sistema implementa un meccanismo di smoothing basato su contatori consecutivi. Vengono mantenuti due contatori per ciascun veicolo: un \texttt{anomaly\_counter}, che si incrementa ad ogni campione con $\text{MSE} > \text{threshold}$ e si azzera al primo campione normale, e un \texttt{normal\_counter}, che opera in modo simmetrico. La transizione dallo stato normale allo stato di anomalia avviene solo quando il contatore di anomalie supera la soglia di 20 campioni consecutivi; analogamente, il ritorno allo stato normale richiede 20 campioni consecutivi sotto soglia. Questo meccanismo introduce un ritardo controllato nella segnalazione (20 minuti con campionamento al minuto), ma elimina le notifiche spurie causate da picchi isolati, come quelli associati alle aperture della porta o ai cicli di sbrinamento.
-
-Il risultato dell'analisi viene pubblicato sul topic \texttt{fridge/\{vehicleName\}/anomalies}, includendo l'errore di ricostruzione, lo stato dei contatori e, nelle sole transizioni di stato, un messaggio di allerta che il backend persisterà come notifica.
-
-
+Il risultato dell'analisi viene pubblicato sul topic 
+\texttt{fridge/\{vehicleName\}/anomalies}, includendo l'errore di 
+ricostruzione, lo stato dei contatori e, nelle sole transizioni di stato, 
+un messaggio di allerta che il backend persisterà come notifica.
 % ============================================================================
 \section{Gestione delle notifiche}
 \label{sec:notifiche}

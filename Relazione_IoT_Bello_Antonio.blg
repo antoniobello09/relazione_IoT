@@ -1,15 +1,15 @@
 [0] Config.pm:307> INFO - This is Biber 2.19
-[2] Config.pm:310> INFO - Logfile is 'Relazione_IoT_Bello_Antonio.blg'
-[329] biber-MSWIN64:340> INFO - === 
-[590] Biber.pm:419> INFO - Reading 'Relazione_IoT_Bello_Antonio.bcf'
-[808] Biber.pm:979> INFO - Found 6 citekeys in bib section 0
-[833] Biber.pm:4419> INFO - Processing section 0
-[870] Biber.pm:4610> INFO - Looking for bibtex file 'bibliografia.bib' for section 0
-[1065] bibtex.pm:1713> INFO - LaTeX decoding ...
-[1100] bibtex.pm:1519> INFO - Found BibTeX data source 'bibliografia.bib'
-[1262] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[1262] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
-[1262] Biber.pm:4239> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'it-IT'
-[1263] Biber.pm:4245> INFO - No sort tailoring available for locale 'it-IT'
-[1339] bbl.pm:660> INFO - Writing 'Relazione_IoT_Bello_Antonio.bbl' with encoding 'UTF-8'
-[1351] bbl.pm:763> INFO - Output to Relazione_IoT_Bello_Antonio.bbl
+[3] Config.pm:310> INFO - Logfile is 'Relazione_IoT_Bello_Antonio.blg'
+[281] biber-MSWIN64:340> INFO - === 
+[478] Biber.pm:419> INFO - Reading 'Relazione_IoT_Bello_Antonio.bcf'
+[637] Biber.pm:979> INFO - Found 6 citekeys in bib section 0
+[659] Biber.pm:4419> INFO - Processing section 0
+[692] Biber.pm:4610> INFO - Looking for bibtex file 'bibliografia.bib' for section 0
+[845] bibtex.pm:1713> INFO - LaTeX decoding ...
+[868] bibtex.pm:1519> INFO - Found BibTeX data source 'bibliografia.bib'
+[975] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[976] UCollate.pm:68> INFO - Overriding locale 'it-IT' defaults 'variable = shifted' with 'variable = non-ignorable'
+[976] Biber.pm:4239> INFO - Sorting list 'nty/global//global/global' of type 'entry' with template 'nty' and locale 'it-IT'
+[976] Biber.pm:4245> INFO - No sort tailoring available for locale 'it-IT'
+[1026] bbl.pm:660> INFO - Writing 'Relazione_IoT_Bello_Antonio.bbl' with encoding 'UTF-8'
+[1033] bbl.pm:763> INFO - Output to Relazione_IoT_Bello_Antonio.bbl
